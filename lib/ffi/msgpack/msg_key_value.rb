@@ -1,5 +1,5 @@
 require 'ffi/msgpack/types'
-require 'ffi/msgpack/object'
+require 'ffi/msgpack/msg_object'
 
 module FFI
   module MsgPack

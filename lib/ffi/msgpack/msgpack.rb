@@ -25,7 +25,7 @@ module FFI
 
     attach_function :msgpack_unpacker_execute, [:pointer], :int
 
-    attach_function :msgpack_unpacker_data, [:pointer], Object
+    attach_function :msgpack_unpacker_data, [:pointer], MsgObject
 
     attach_function :msgpack_unpacker_release_zone, [:pointer], :pointer
 
@@ -81,7 +81,7 @@ module FFI
 
     #attach_function :msgpack_pack_raw_body, [:pointer, :pointer, :size_t], :int
 
-    attach_function :msgpack_pack_object, [:pointer, Object], :int
+    attach_function :msgpack_pack_object, [:pointer, MsgObject], :int
 
   end
 end
