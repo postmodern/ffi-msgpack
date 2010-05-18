@@ -2,7 +2,7 @@ require 'ffi'
 
 module FFI
   module MsgPack
-    class Object < FFI::Struct
+    class MsgObject < FFI::Struct
 
     end
   end
