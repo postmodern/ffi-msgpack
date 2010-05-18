@@ -1,5 +1,5 @@
 require 'ffi/msgpack/types'
-require 'ffi/msgpack/object'
+require 'ffi/msgpack/msg_object'
 
 require 'ffi'
 
@@ -8,6 +8,9 @@ module FFI
     extend FFI::Library
 
     ffi_lib 'msgpack'
+
+    attach_function :msgpack_object_print, [:pointer, MsgObject], :void
+    attach_function :msgpack_object_equal, [MsgObject, MsgObject], :bool
 
     attach_function :msgpack_unpacker_init, [:pointer, :size_t], :bool
     attach_function :msgpack_unpacker_destroy, [:pointer], :void
