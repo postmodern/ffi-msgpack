@@ -16,14 +16,14 @@ module FFI
     callback :msgpack_packer_write, [:pointer, :pointer, :uint], :int
 
     enum :msgpack_object_type, [
-      :nil,              0x00,
-      :boolean,          0x01,
-      :positive_integer, 0x02,
-      :negative_integer, 0x03,
-      :double,           0x04,
-      :raw,              0x05,
-      :array,            0x06,
-      :map,              0x07
+      :nil,              0x01,
+      :boolean,          0x02,
+      :positive_integer, 0x03,
+      :negative_integer, 0x04,
+      :double,           0x05,
+      :raw,              0x06,
+      :array,            0x07,
+      :map,              0x08
     ]
 
   end
