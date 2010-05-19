@@ -23,7 +23,7 @@ module FFI
       # @return [FFI::Pointer]
       #   The pointer to the raw data.
       #
-      def data_ptr
+      def raw_ptr
         self[:ptr]
       end
 
@@ -33,7 +33,7 @@ module FFI
       # @return [String]
       #   The raw data.
       #
-      def data
+      def to_s
         self[:ptr].get_bytes(0,self[:size])
       end
 
