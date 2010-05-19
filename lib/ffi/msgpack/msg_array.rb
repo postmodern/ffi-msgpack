@@ -52,7 +52,7 @@ module FFI
       #
       def to_a
         (0...self.length).map do |index|
-          MsgObject.new(self[:ptr][index * MsgObject.size]).value
+          MsgObject.new(self[:ptr][index * MsgObject.size]).to_ruby
         end
       end
 

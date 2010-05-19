@@ -18,7 +18,7 @@ describe MsgPack::MsgObject do
     end
 
     it "should return a Ruby nil value" do
-      @obj.value.should == nil
+      @obj.to_ruby.should == nil
     end
   end
 
@@ -42,7 +42,7 @@ describe MsgPack::MsgObject do
     end
 
     it "should return a Ruby true/false value" do
-      @obj.value.should == true
+      @obj.to_ruby.should == true
     end
   end
 
@@ -63,7 +63,7 @@ describe MsgPack::MsgObject do
     end
 
     it "should return a Ruby Integer" do
-      @obj.value.should == 10
+      @obj.to_ruby.should == 10
     end
   end
 
@@ -84,7 +84,7 @@ describe MsgPack::MsgObject do
     end
 
     it "should return a Ruby Integer" do
-      @obj.value.should == -1
+      @obj.to_ruby.should == -1
     end
   end
 
@@ -105,7 +105,7 @@ describe MsgPack::MsgObject do
     end
 
     it "should return a Ruby Float" do
-      @obj.value.should == 0.002
+      @obj.to_ruby.should == 0.002
     end
   end
 
@@ -129,7 +129,7 @@ describe MsgPack::MsgObject do
     end
 
     it "should return a String" do
-      @obj.value.should == @binary
+      @obj.to_ruby.should == @binary
     end
   end
 
@@ -152,7 +152,7 @@ describe MsgPack::MsgObject do
     end
 
     it "should return a Ruby Array" do
-      @obj.value.should == @array
+      @obj.to_ruby.should == @array
     end
   end
 end

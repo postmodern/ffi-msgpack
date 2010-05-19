@@ -202,7 +202,7 @@ module FFI
       # @raise [RuntimeError]
       #   The type of the Msg Object was unknown.
       #
-      def value
+      def to_ruby
         case self[:type]
         when :nil
           nil
