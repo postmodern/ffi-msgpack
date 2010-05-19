@@ -19,6 +19,19 @@ module FFI
       end
 
       #
+      # Sets the type of the Msg Object.
+      #
+      # @param [Symbol] new_type
+      #   The new type.
+      #
+      # @return [Symbol]
+      #   The new type of the Msg Object.
+      #
+      def type=(new_type)
+        self[:type] = new_type
+      end
+
+      #
       # The values of the Msg Object.
       #
       # @return [MsgObjectUnion]
