@@ -153,6 +153,36 @@ module FFI
       end
 
       #
+      # Creates a new map Msg Object.
+      #
+      # @param [Hash] values
+      #   The values for the map.
+      #
+      # @param [FFI::Pointer] ptr
+      #   Optional pointer to create the Msg Object at.
+      #
+      # @return [MsgObject]
+      #   The map Msg Object.
+      #
+      def MsgObject.new_map(values,ptr=nil)
+        entries = FFI::MemoryPointer.new(MsgKeyValue,values.length)
+
+        values.each_with_index do |(key,value),index|
+          pair = MsgKeyValue.new(entries[index])
+
+          pair[:key] = MsgObject.new_object(key)
+          pair[:value] = MsgObject.new_object(value)
+        end
+
+        obj = MsgObject.new
+        obj[:type] = :map
+        obj[:values][:map][:size] = values.length
+        obj[:values][:map][:ptr] = entries
+
+        return obj
+      end
+
+      #
       # Creates a Msg Object from a given Ruby object.
       #
       # @param [Object] value
@@ -166,6 +196,8 @@ module FFI
       #
       def MsgObject.new_object(value,ptr=nil)
         case value
+        when Hash
+          MsgObject.new_map(value,ptr)
         when Array
           MsgObject.new_array(value,ptr)
         when String
@@ -222,6 +254,8 @@ module FFI
           self[:values][:raw].to_s
         when :array
           self[:values][:array].to_a
+        when :map
+          self[:values][:map].to_hash
         else
           raise(RuntimeError,"unknown msgpack object type",caller)
         end

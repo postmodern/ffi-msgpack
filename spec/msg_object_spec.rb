@@ -145,7 +145,7 @@ describe MsgPack::MsgObject do
       @obj[:values][:array].length.should == @array.length
     end
 
-    it "should create raw Msg Objects from Arrays" do
+    it "should create array Msg Objects from Arrays" do
       obj = MsgPack::MsgObject.new_object(@array)
 
       obj.type.should == :array
@@ -153,6 +153,35 @@ describe MsgPack::MsgObject do
 
     it "should return a Ruby Array" do
       @obj.to_ruby.should == @array
+    end
+  end
+
+  describe "map" do
+    before(:all) do
+      @hash = {
+        1 => 2,
+        0.001 => 0.002,
+        nil => nil,
+        true => false,
+        'a' => 'b'
+      }
+      @obj = MsgPack::MsgObject.new_map(@hash)
+    end
+
+    it "should create new map Msg Objects" do
+      @obj.type.should == :map
+
+      @obj[:values][:map].length.should == @hash.length
+    end
+
+    it "should create map Msg Objects from Hashes" do
+      obj = MsgPack::MsgObject.new_object(@hash)
+
+      obj.type.should == :map
+    end
+
+    it "should return a Ruby Hash" do
+      @obj.to_ruby.should == @hash
     end
   end
 end
