@@ -39,19 +39,19 @@ module FFI
         packer[:data] = nil
         packer[:callback] = nil
 
-        if buffer
+        if block
+          packer.buffer = nil
+
+          # custom callback
+          packer[:callback] = Proc.new(&block)
+        else
           # set the buffer
-          packer.buffer = buffer
+          packer.buffer = (buffer || '')
 
           # setup the default callback
           packer[:callback] = Proc.new do |packer_ptr,data_ptr,length|
             packer.buffer << data_ptr.get_bytes(0,length)
           end
-        elsif block
-          packer.buffer = nil
-
-          # custom callback
-          packer[:callback] = Proc.new(&block)
         end
 
         return packer
