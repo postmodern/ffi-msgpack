@@ -34,7 +34,7 @@ module FFI
       #   The raw data.
       #
       def data
-        self[:ptr].get_binary(self[:size])
+        self[:ptr].get_bytes(0,self[:size])
       end
 
     end
