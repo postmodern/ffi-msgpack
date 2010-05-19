@@ -40,8 +40,6 @@ module FFI
 
     attach_function :msgpack_unpacker_expand_buffer, [:pointer, :size_t], :bool
 
-    callback :msgpack_packer_write, [:pointer, :pointer, :uint], :int
-
     #attach_function :msgpack_packer_init, [:pointer, :pointer, :msgpack_packer_write], :void
 
     #attach_function :msgpack_packer_new, [:pointer, :msgpack_packer_write], :pointer

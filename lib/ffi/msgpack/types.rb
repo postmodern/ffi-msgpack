@@ -12,5 +12,8 @@ module FFI
       :msgpack_unpack_continue, 0,
       :msgpack_unpack_parse_error, -1
     ]
+
+    callback :msgpack_packer_write, [:pointer, :pointer, :uint], :int
+
   end
 end
