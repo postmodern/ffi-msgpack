@@ -44,6 +44,16 @@ module FFI
         end
       end
 
+      #
+      # The Array of values.
+      #
+      # @return [Array<Object>]
+      #   The values contained within the Array.
+      #
+      def to_a
+        (0..self.length).map { |index| MsgObject.new(self[:ptr]).value }
+      end
+
     end
   end
 end
