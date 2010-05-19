@@ -109,6 +109,36 @@ module FFI
         self[:values]
       end
 
+      #
+      # The value of the Msg Object.
+      #
+      # @return [Object]
+      #   The value of the Msg Object, expressed as a Ruby primitive.
+      #
+      # @raise [RuntimeError]
+      #   The type of the Msg Object was unknown.
+      #
+      def value
+        case self[:type]
+        when :nil
+          nil
+        when :boolean
+          if self[:values][:boolean] == 0
+            false
+          else
+            true
+          end
+        when :positive_integer
+          self[:values][:u64]
+        when :negative_integer
+          self[:values][:i64]
+        when :double
+          self[:values][:dec]
+        else
+          raise(RuntimeError,"unknown msgpack object type",caller)
+        end
+      end
+
     end
   end
 end
