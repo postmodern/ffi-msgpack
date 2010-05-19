@@ -18,13 +18,23 @@ module FFI
       end
 
       #
-      # The raw data.
+      # The pointer to the raw data.
       #
       # @return [FFI::Pointer]
       #   The pointer to the raw data.
       #
-      def data
+      def data_ptr
         self[:ptr]
+      end
+
+      #
+      # The raw data.
+      #
+      # @return [String]
+      #   The raw data.
+      #
+      def data
+        self[:ptr].get_binary(self[:size])
       end
 
     end
