@@ -7,7 +7,7 @@ module FFI
   module MsgPack
     class MsgObjectUnion < FFI::Union
 
-      layout :boolean, :bool,
+      layout :boolean, :uint8,
              :u64, :uint64,
              :i64, :int64,
              :dec, :double,
