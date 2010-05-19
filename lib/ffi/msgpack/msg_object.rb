@@ -41,19 +41,6 @@ module FFI
         self[:values]
       end
 
-      #
-      # Compares the Msg Object with another Object.
-      #
-      # @param [MsgObject] object
-      #   Another Msg Object.
-      #
-      # @return [Boolean]
-      #   Specifies whether the two Msg Objects are equal.
-      #
-      def equal?(object)
-        MsgPack.msgpack_object_equal(self,object)
-      end
-
     end
   end
 end
