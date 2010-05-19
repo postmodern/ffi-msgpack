@@ -11,11 +11,14 @@ module FFI
       #
       # Creates a new `nil` Msg Object.
       #
+      # @param [FFI::Pointer] ptr
+      #   Optional pointer to create the Msg Object at.
+      #
       # @return [MsgObject]
       #   A new Msg Object that represents the `nil` value.
       #
-      def MsgObject.new_nil
-        obj = MsgObject.new
+      def MsgObject.new_nil(ptr=nil)
+        obj = MsgObject.new(ptr)
         obj[:type] = :nil
 
         return obj
@@ -27,11 +30,14 @@ module FFI
       # @param [Boolean] value
       #   The boolean value.
       #
+      # @param [FFI::Pointer] ptr
+      #   Optional pointer to create the Msg Object at.
+      #
       # @return [MsgObject]
       #   The new boolean Msg Object.
       #
-      def MsgObject.new_boolean(value)
-        obj = MsgObject.new
+      def MsgObject.new_boolean(value,ptr=nil)
+        obj = MsgObject.new(ptr)
         obj[:type] = :boolean
         obj[:values][:boolean] = if value
                                    1
@@ -48,11 +54,14 @@ module FFI
       # @param [Integer] value
       #   The integer value.
       #
+      # @param [FFI::Pointer] ptr
+      #   Optional pointer to create the Msg Object at.
+      #
       # @return [MsgObject]
       #   The new integer Msg Object.
       #
-      def MsgObject.new_integer(value)
-        obj = MsgObject.new
+      def MsgObject.new_integer(value,ptr=nil)
+        obj = MsgObject.new(ptr)
 
         if value < 0
           obj[:type] = :negative_integer
@@ -71,11 +80,14 @@ module FFI
       # @param [Double, Float] value
       #   The floating-point value.
       #
+      # @param [FFI::Pointer] ptr
+      #   Optional pointer to create the Msg Object at.
+      #
       # @return [MsgObject]
       #   The floating-point Msg Object.
       #
-      def MsgObject.new_double(value)
-        obj = MsgObject.new
+      def MsgObject.new_double(value,ptr=nil)
+        obj = MsgObject.new(ptr)
         obj[:type] = :double
         obj[:values][:dec] = value
 
@@ -85,8 +97,8 @@ module FFI
       #
       # @see MsgObject.new_double
       #
-      def MsgObject.new_float(value)
-        MsgObject.new_double(value)
+      def MsgObject.new_float(value,ptr=nil)
+        MsgObject.new_double(value,ptr)
       end
 
       #
@@ -95,14 +107,17 @@ module FFI
       # @param [String] data
       #   The raw data.
       #
+      # @param [FFI::Pointer] ptr
+      #   Optional pointer to create the Msg Object at.
+      #
       # @return [MsgObject]
       #   The raw Msg Object.
       #
-      def MsgObject.new_raw(data)
+      def MsgObject.new_raw(data,ptr=nil)
         buffer = FFI::MemoryPointer.new(:uchar, data.length)
         buffer.put_bytes(0,data)
 
-        obj = MsgObject.new
+        obj = MsgObject.new(ptr)
         obj[:type] = :raw
         obj[:values][:raw][:size] = data.length
         obj[:values][:raw][:ptr] = buffer
