@@ -5,6 +5,7 @@ module FFI
     extend FFI::Library
 
     typedef :int, :size_t
+    typedef :pointer, :FILE
 
     enum :msgpack_unpack_return, [
       :success, 2,
