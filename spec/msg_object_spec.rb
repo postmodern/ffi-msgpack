@@ -76,4 +76,18 @@ describe MsgPack::MsgObject do
       @obj.value.should == 0.002
     end
   end
+
+  describe "raw" do
+    before(:all) do
+      @binary = "\x01example\x0d"
+      @obj = MsgPack::MsgObject.new_raw(@binary)
+    end
+
+    it "should create new raw Msg Objects" do
+      @obj.type.should == :raw
+
+      @obj[:values][:raw].length.should == @binary.length
+      @obj[:values][:raw].data.should == @binary
+    end
+  end
 end

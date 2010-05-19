@@ -90,6 +90,27 @@ module FFI
       end
 
       #
+      # Creates a new raw Msg Object.
+      #
+      # @param [String] data
+      #   The raw data.
+      #
+      # @return [MsgObject]
+      #   The raw Msg Object.
+      #
+      def MsgObject.new_raw(data)
+        buffer = FFI::MemoryPointer.new(:uchar, data.length)
+        buffer.put_bytes(0,data)
+
+        obj = MsgObject.new
+        obj[:type] = :raw
+        obj[:values][:raw][:size] = data.length
+        obj[:values][:raw][:ptr] = buffer
+
+        return obj
+      end
+
+      #
       # The type of the Msg Object.
       #
       # @return [Symbol]
@@ -124,6 +145,8 @@ module FFI
           self[:values][:i64]
         when :double
           self[:values][:dec]
+        when :raw
+          self[:values][:raw][:ptr].get_string(self[:values][:raw][:size])
         else
           raise(RuntimeError,"unknown msgpack object type",caller)
         end
