@@ -51,7 +51,9 @@ module FFI
       #   The values contained within the Array.
       #
       def to_a
-        (0..self.length).map { |index| MsgObject.new(self[:ptr]).value }
+        (0...self.length).map do |index|
+          MsgObject.new(self[:ptr][index * MsgObject.size]).value
+        end
       end
 
     end
