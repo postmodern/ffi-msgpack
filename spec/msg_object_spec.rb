@@ -128,6 +128,12 @@ describe MsgPack::MsgObject do
       obj.type.should == :raw
     end
 
+    it "should create raw Msg Objects from Symbols" do
+      obj = MsgPack::MsgObject.new_object(:example)
+
+      obj.type.should == :raw
+    end
+
     it "should return a String" do
       @obj.to_ruby.should == @binary
     end

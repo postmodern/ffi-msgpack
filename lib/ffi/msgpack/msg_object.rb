@@ -200,8 +200,8 @@ module FFI
           MsgObject.new_map(value,ptr)
         when Array
           MsgObject.new_array(value,ptr)
-        when String
-          MsgObject.new_raw(value,ptr)
+        when String, Symbol
+          MsgObject.new_raw(value.to_s,ptr)
         when Float
           MsgObject.new_double(value,ptr)
         when Integer
