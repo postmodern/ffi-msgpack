@@ -48,6 +48,8 @@ module FFI
             packer.buffer << data_ptr.get_bytes(0,length)
           end
         elsif block
+          packer.buffer = nil
+
           # custom callback
           packer[:callback] = Proc.new(&block)
         end
@@ -77,6 +79,17 @@ module FFI
       def <<(value)
         pack(MsgObject.new_object(value))
         return self
+      end
+
+      #
+      # The contents of the buffer.
+      #
+      # @return [String, nil]
+      #   The contents of the buffer, or `nil` if only a callback is being
+      #   used to write the packed data.
+      #
+      def to_s
+        self.buffer.to_s if self.buffer
       end
 
     end
