@@ -55,6 +55,30 @@ module FFI
         return packer
       end
 
+      #
+      # Packs a Msg Object.
+      #
+      # @param [MsgObject] msg
+      #   The Msg Object to pack.
+      #
+      def pack(msg)
+        MsgPack.msgpack_pack_object(self,msg)
+      end
+
+      #
+      # Packs a Ruby object.
+      #
+      # @param [Object] value
+      #   The Ruby object to pack.
+      #
+      # @return [Packer]
+      #   The packer.
+      #
+      def <<(value)
+        pack(MsgObject.new_object(value))
+        return self
+      end
+
     end
   end
 end
