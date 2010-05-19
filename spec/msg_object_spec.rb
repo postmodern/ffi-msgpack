@@ -24,7 +24,7 @@ describe MsgPack::MsgObject do
     it "should create new boolean Msg Objects" do
       @obj.type.should == :boolean
 
-      @obj.values[:boolean].should == 1
+      @obj[:values][:boolean].should == 1
     end
 
     it "should return a Ruby true/false value" do
@@ -39,7 +39,7 @@ describe MsgPack::MsgObject do
 
     it "should create new positive integer Msg Objects" do
       @obj.type.should == :positive_integer
-      @obj.values[:u64].should == 10
+      @obj[:values][:u64].should == 10
     end
 
     it "should return a Ruby Integer" do
@@ -54,7 +54,7 @@ describe MsgPack::MsgObject do
 
     it "should create new negative integer Msg Objects" do
       @obj.type.should == :negative_integer
-      @obj.values[:i64].should == -1
+      @obj[:values][:i64].should == -1
     end
 
     it "should return a Ruby Integer" do
@@ -69,7 +69,7 @@ describe MsgPack::MsgObject do
 
     it "should create new floating-point Msg Objects" do
       @obj.type.should == :double
-      @obj.values[:dec].should == 0.002
+      @obj[:values][:dec].should == 0.002
     end
 
     it "should return a Ruby Float" do

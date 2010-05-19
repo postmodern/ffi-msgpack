@@ -100,16 +100,6 @@ module FFI
       end
 
       #
-      # The values of the Msg Object.
-      #
-      # @return [MsgObjectUnion]
-      #   The values of the Msg Object.
-      #
-      def values
-        self[:values]
-      end
-
-      #
       # The value of the Msg Object.
       #
       # @return [Object]
