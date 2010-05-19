@@ -44,6 +44,24 @@ module FFI
         end
       end
 
+      #
+      # The Hash of the Msg Maps keys and values.
+      #
+      # @return [Hash]
+      #   The Hash of the key->value values.
+      #
+      def to_hash
+        hash = {}
+
+        (0...self.length).each do |index|
+          pair = MsgKeyValue.new(self[:ptr][index * MsgKeyValue.size])
+
+          hash[pair.key.to_ruby] = pair.value.to_ruby
+        end
+
+        return hash
+      end
+
     end
   end
 end
