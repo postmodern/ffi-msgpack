@@ -7,6 +7,12 @@ describe MsgPack::MsgObject do
       @obj = MsgPack::MsgObject.new_nil
     end
 
+    it "should create nil Msg Objects from NilClasses" do
+      obj = MsgPack::MsgObject.new_object(nil)
+
+      obj.type.should == :nil
+    end
+
     it "should create new nil Msg Objects" do
       @obj.type.should == :nil
     end
@@ -27,6 +33,14 @@ describe MsgPack::MsgObject do
       @obj[:values][:boolean].should == 1
     end
 
+    it "should create boolean Msg Objects from TrueClass/FalseClass" do
+      obj1 = MsgPack::MsgObject.new_object(true)
+      obj1.type.should == :boolean
+
+      obj2 = MsgPack::MsgObject.new_object(false)
+      obj2.type.should == :boolean
+    end
+
     it "should return a Ruby true/false value" do
       @obj.value.should == true
     end
@@ -40,6 +54,12 @@ describe MsgPack::MsgObject do
     it "should create new positive integer Msg Objects" do
       @obj.type.should == :positive_integer
       @obj[:values][:u64].should == 10
+    end
+
+    it "should create positive integer Msg Objects from Integers" do
+      obj1 = MsgPack::MsgObject.new_object(10)
+
+      obj1.type.should == :positive_integer
     end
 
     it "should return a Ruby Integer" do
@@ -57,6 +77,12 @@ describe MsgPack::MsgObject do
       @obj[:values][:i64].should == -1
     end
 
+    it "should create negative integer Msg Objects from Integers" do
+      obj1 = MsgPack::MsgObject.new_object(-1)
+
+      obj1.type.should == :negative_integer
+    end
+
     it "should return a Ruby Integer" do
       @obj.value.should == -1
     end
@@ -70,6 +96,12 @@ describe MsgPack::MsgObject do
     it "should create new floating-point Msg Objects" do
       @obj.type.should == :double
       @obj[:values][:dec].should == 0.002
+    end
+
+    it "should create floating-point Msg Objects from Floats" do
+      obj1 = MsgPack::MsgObject.new_object(0.002)
+
+      obj1.type.should == :double
     end
 
     it "should return a Ruby Float" do
@@ -87,7 +119,40 @@ describe MsgPack::MsgObject do
       @obj.type.should == :raw
 
       @obj[:values][:raw].length.should == @binary.length
-      @obj[:values][:raw].data.should == @binary
+      @obj[:values][:raw].to_s.should == @binary
+    end
+
+    it "should create raw Msg Objects from Strings" do
+      obj = MsgPack::MsgObject.new_object(@binary)
+
+      obj.type.should == :raw
+    end
+
+    it "should return a String" do
+      @obj.value.should == @binary
+    end
+  end
+
+  describe "array" do
+    before(:all) do
+      @array = [1,true,nil,0.002,'a']
+      @obj = MsgPack::MsgObject.new_array(@array)
+    end
+
+    it "should create new array Msg Objects" do
+      @obj.type.should == :array
+
+      @obj[:values][:array].length.should == @array.length
+    end
+
+    it "should create raw Msg Objects from Arrays" do
+      obj = MsgPack::MsgObject.new_object(@array)
+
+      obj.type.should == :array
+    end
+
+    it "should return a Ruby Array" do
+      @obj.value.should == @array
     end
   end
 end

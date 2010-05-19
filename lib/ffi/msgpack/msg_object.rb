@@ -126,6 +126,64 @@ module FFI
       end
 
       #
+      # Creates a new array Msg Object.
+      #
+      # @param [Array] values
+      #   The values for the array.
+      #
+      # @param [FFI::Pointer] ptr
+      #   Optional pointer to create the Msg Object at.
+      #
+      # @return [MsgObject]
+      #   The array Msg Object.
+      #
+      def MsgObject.new_array(values,ptr=nil)
+        entries = FFI::MemoryPointer.new(MsgObject,values.length)
+
+        values.each_with_index do |value,index|
+          MsgObject.new_object(value,entries[index])
+        end
+
+        obj = MsgObject.new(ptr)
+        obj[:type] = :array
+        obj[:values][:array][:size] = values.length
+        obj[:values][:array][:ptr] = entries
+
+        return obj
+      end
+
+      #
+      # Creates a Msg Object from a given Ruby object.
+      #
+      # @param [Object] value
+      #   The Ruby object.
+      #
+      # @param [FFI::Pointer] ptr
+      #   Optional pointer to create the Msg Object at.
+      #
+      # @return [MsgObject]
+      #   The new Msg Object.
+      #
+      def MsgObject.new_object(value,ptr=nil)
+        case value
+        when Array
+          MsgObject.new_array(value,ptr)
+        when String
+          MsgObject.new_raw(value,ptr)
+        when Float
+          MsgObject.new_double(value,ptr)
+        when Integer
+          MsgObject.new_integer(value,ptr)
+        when TrueClass, FalseClass
+          MsgObject.new_boolean(value,ptr)
+        when NilClass
+          MsgObject.new_nil(ptr)
+        else
+          raise(ArgumentError,"ambigious object to create MsgObject from: #{value.inspect}",caller)
+        end
+      end
+
+      #
       # The type of the Msg Object.
       #
       # @return [Symbol]
@@ -161,7 +219,9 @@ module FFI
         when :double
           self[:values][:dec]
         when :raw
-          self[:values][:raw][:ptr].get_string(self[:values][:raw][:size])
+          self[:values][:raw].to_s
+        when :array
+          self[:values][:array].to_a
         else
           raise(RuntimeError,"unknown msgpack object type",caller)
         end
