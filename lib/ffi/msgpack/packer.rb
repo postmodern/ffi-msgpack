@@ -92,6 +92,22 @@ module FFI
         self.buffer.to_s if self.buffer
       end
 
+      #
+      # Inspects the packer.
+      #
+      # @return [String]
+      #   The inspected packer.
+      #
+      def inspect
+        addr = ('0x%x' % self.pointer.address)
+
+        if self.buffer
+          "#<#{self.class}:#{addr}: #{self.buffer.inspect}>"
+        else
+          "#<#{self.class}:#{addr}>"
+        end
+      end
+
     end
   end
 end
