@@ -226,6 +226,16 @@ module FFI
       end
 
       #
+      # The union of values for the Msg Object.
+      #
+      # @return [MsgObjectUnion]
+      #   The union of values.
+      #
+      def values
+        self[:values]
+      end
+
+      #
       # The value of the Msg Object.
       #
       # @return [Object]
