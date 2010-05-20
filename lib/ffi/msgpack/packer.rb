@@ -8,6 +8,7 @@ module FFI
       layout :data, :pointer,
              :callback, :msgpack_packer_write
 
+      # The optional buffer to write packed Msg Objects into.
       attr_accessor :buffer
 
       #
