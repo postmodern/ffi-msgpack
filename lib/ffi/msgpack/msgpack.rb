@@ -2,6 +2,7 @@ require 'ffi/msgpack/types'
 require 'ffi/msgpack/msg_object'
 
 require 'ffi'
+require 'enumerator'
 
 module FFI
   module MsgPack
@@ -93,7 +94,7 @@ module FFI
     #
     # Packs a Ruby object.
     #
-    # @param [Hash, Array, String, Symbol, Integer, Float, true, false, nil]  obj
+    # @param [Hash, Array, String, Symbol, Integer, Float, true, false, nil] obj
     #   The Ruby object to pack.
     #
     # @return [String]
@@ -104,6 +105,34 @@ module FFI
       packer << obj
 
       return packer.to_s
+    end
+
+    #
+    # Unpacks a packed object.
+    #
+    # @param [String] packed
+    #   The packed object.
+    #
+    # @yield [obj]
+    #   The given block will be passed every unpacked Ruby object.
+    #
+    # @yieldparam [Hash, Array, String, Symbol, Integer, Float, true, false, nil] obj
+    #   The unpacked Ruby object.
+    #
+    # @return [Enumerator, nil]
+    #   If no block is given, an Enumerator will be returned.
+    #
+    def MsgPack.unpack(packed)
+      return enum_for(:unpack,packed) unless block_given?
+
+      unpacker = Unpacker.create(packed.length)
+      unpacker << packed
+
+      unpacker.each do |obj|
+        yield obj.to_ruby
+      end
+
+      return nil
     end
 
   end
