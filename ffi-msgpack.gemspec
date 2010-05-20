@@ -52,6 +52,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/postmodern/ffi-msgpack}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
+  s.requirements = ["libmsgpack, 0.4.2 or greater"]
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{FFI bindings for msgpack}
   s.test_files = [

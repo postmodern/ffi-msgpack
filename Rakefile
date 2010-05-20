@@ -21,6 +21,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = %Q{http://github.com/postmodern/ffi-msgpack}
   gem.description = %Q{Ruby FFI bindings for the msgpack library.}
   gem.authors = ['Postmodern']
+  gem.requirements = ['libmsgpack, 0.4.2 or greater']
   gem.has_rdoc = 'yard'
 end
 
