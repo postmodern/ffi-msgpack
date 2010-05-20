@@ -12,6 +12,10 @@ describe MsgPack::Packer do
       @packer.buffer.should == "\x01"
     end
 
+    it "should track the number of bytes written" do
+      @packer.length.should == 1
+    end
+
     it "should be convertable to a String" do
       @packer.to_s.should == "\x01"
     end
@@ -29,6 +33,15 @@ describe MsgPack::Packer do
       packer << 1
 
       @buffer.should == ["\x01"]
+    end
+
+    it "should track the number of bytes written" do
+      packer = MsgPack::Packer.create do |packed|
+        @buffer << packed
+      end
+      packer << 1
+
+      packer.length.should == 1
     end
 
     it "should accept a secondary length argument" do
