@@ -12,7 +12,7 @@ module FFI
       attr_accessor :buffer
 
       # The length of the buffer
-      attr_reader :length
+      attr_accessor :length
 
       #
       # Creates a new packer.
