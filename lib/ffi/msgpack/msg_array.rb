@@ -5,7 +5,7 @@ module FFI
   module MsgPack
     class MsgArray < FFI::Struct
 
-      layout :size, :size_t,
+      layout :size, :uint32,
              :ptr, :pointer
 
       #
