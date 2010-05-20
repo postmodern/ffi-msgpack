@@ -12,6 +12,13 @@ module FFI
     attach_function :msgpack_object_print, [:pointer, MsgObject.by_value], :void
     #attach_function :msgpack_object_equal, [MsgObject, MsgObject.by_value], :bool
 
+    attach_function :msgpack_zone_init, [:pointer, :size_t], :bool
+    attach_function :msgpack_zone_destroy, [:pointer], :void
+    attach_function :msgpack_zone_new, [:size_t], :pointer
+    attach_function :msgpack_zone_free, [:pointer], :void
+    attach_function :msgpack_zone_is_empty, [:pointer], :bool
+    attach_function :msgpack_zone_clear, [:pointer], :void
+
     attach_function :msgpack_unpacker_init, [:pointer, :size_t], :bool
     attach_function :msgpack_unpacker_destroy, [:pointer], :void
 
