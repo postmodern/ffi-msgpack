@@ -16,14 +16,11 @@ module FFI
       # @param [#<<] buffer
       #   Optional buffer to append packed Msg Objects to.
       #
-      # @yield [user,data_ptr,length]
+      # @yield [packed_ptr,length]
       #   If a block is given, it will be used as the callback to write
       #   the packed data.
       #
-      # @yieldparam [FFI::Pointer] user
-      #   Any user data.
-      #
-      # @yieldparam [FFI::Pointer] data_ptr
+      # @yieldparam [FFI::Pointer] packed_ptr
       #   The pointer to the packed data to be written.
       #
       # @yieldparam [Integer] length
@@ -43,14 +40,16 @@ module FFI
           packer.buffer = nil
 
           # custom callback
-          packer[:callback] = Proc.new(&block)
+          packer[:callback] = Proc.new do |user,packed_ptr,length|
+            block.call(packed_ptr,length)
+          end
         else
           # set the buffer
           packer.buffer = (buffer || '')
 
           # setup the default callback
-          packer[:callback] = Proc.new do |user,pack_ptr,length|
-            packer.buffer << pack_ptr.get_bytes(0,length)
+          packer[:callback] = Proc.new do |user,packed_ptr,length|
+            packer.buffer << packed_ptr.get_bytes(0,length)
           end
         end
 
