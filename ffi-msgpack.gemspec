@@ -46,7 +46,8 @@ Gem::Specification.new do |s|
     "lib/ffi/msgpack/zone_finalizer_array.rb",
     "spec/msg_object_spec.rb",
     "spec/packer_spec.rb",
-    "spec/spec_helper.rb"
+    "spec/spec_helper.rb",
+    "spec/unpacker_spec.rb"
   ]
   s.has_rdoc = %q{yard}
   s.homepage = %q{http://github.com/postmodern/ffi-msgpack}
