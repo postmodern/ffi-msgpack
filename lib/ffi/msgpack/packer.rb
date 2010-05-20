@@ -17,7 +17,7 @@ module FFI
       # @param [#<<] buffer
       #   Optional buffer to append packed Msg Objects to.
       #
-      # @yield [packed_ptr,length]
+      # @yield [packed(,length)]
       #   If a block is given, it will be used as the callback to write
       #   the packed data.
       #
@@ -58,7 +58,7 @@ module FFI
       #
       # Sets the write callback for the packer.
       #
-      # @yield [packed,length]
+      # @yield [packed(,length)]
       #   If a block is given, it will be used as the callback to write
       #   the packed data.
       #
@@ -75,7 +75,11 @@ module FFI
         self[:callback] = Proc.new do |data_ptr,packed_ptr,length|
           packed = packed_ptr.get_bytes(0,length)
 
-          block.call(packed,length)
+          if block.arity == 2
+            block.call(packed,length)
+          else
+            block.call(packed)
+          end
           
           0 # return 0 to indicate success
         end
