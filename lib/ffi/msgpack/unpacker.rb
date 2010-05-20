@@ -11,6 +11,12 @@ module FFI
 
       include Enumerable
 
+      # Default chunk-size to expand the buffer by
+      CHUNK_SIZE = 1024
+
+      # The chunk-size to expand the buffer by
+      attr_accessor :chunk_size
+
       layout :buffer, :pointer,
              :used, :size_t,
              :free, :size_t,
@@ -20,6 +26,12 @@ module FFI
              :initial_buffer_size, :size_t,
              :ctx, :pointer
 
+      def initialize(*arguments)
+        super(*arguments)
+
+        @chunk_size = CHUNK_SIZE
+      end
+
       def Unpacker.create(size)
         Unpacker.new(MsgPack.msgpack_unpacker_new(size))
       end
@@ -27,6 +39,45 @@ module FFI
       def Unpacker.release(ptr)
         MsgPack.msgpack_unpacker_free(ptr)
       end
+
+      def read(io)
+        reserve_buffer(@chunk_size)
+        result = io.read(buffer_capacity)
+
+        unless (result.nil? || result.empty?)
+          buffer_consumed(self,result.length)
+          return true
+        else
+          return false
+        end
+      end
+
+      def each
+        return enum_for(:each) unless block_given?
+
+        loop do
+          ret = MsgPack.msgpack_unpacker_execute(self)
+
+          if ret > 0
+            obj = MsgPack.msgpack_unpacker_data(self)
+            zone = Zone.new(MsgPack.msgpack_unpacker_release_zone(self))
+
+            MsgPack.msgpack_unpacker_reset(self)
+
+            yield obj
+
+            MsgPack.msgpack_zone_free(zone)
+          elsif ret < 0
+            raise(ParseError,"a parse error occurred",caller)
+          else
+            break
+          end
+        end
+
+        return self
+      end
+
+      protected
 
       def reverse_buffer(size)
         if self[:free] >= size
@@ -57,31 +108,6 @@ module FFI
 
       def parsed_size
         self[:parsed]
-      end
-
-      def each
-        return enum_for(:each) unless block_given?
-
-        loop do
-          ret = MsgPack.msgpack_unpacker_execute(self)
-
-          if ret > 0
-            obj = MsgPack.msgpack_unpacker_data(self)
-            zone = Zone.new(MsgPack.msgpack_unpacker_release_zone(self))
-
-            MsgPack.msgpack_unpacker_reset(self)
-
-            yield obj
-
-            MsgPack.msgpack_zone_free(zone)
-          elsif ret < 0
-            raise(ParseError,"a parse error occurred",caller)
-          else
-            break
-          end
-        end
-
-        return self
       end
 
     end
