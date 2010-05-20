@@ -110,7 +110,7 @@ module FFI
       #   used to write the packed data.
       #
       def to_s
-        self.buffer.to_s if self.buffer
+        @buffer.to_s if @buffer
       end
 
       #
@@ -122,8 +122,8 @@ module FFI
       def inspect
         addr = ('0x%x' % self.pointer.address)
 
-        if self.buffer
-          "#<#{self.class}:#{addr}: #{self.buffer.inspect}>"
+        if @buffer
+          "#<#{self.class}:#{addr}: #{@buffer.inspect}>"
         else
           "#<#{self.class}:#{addr}>"
         end
