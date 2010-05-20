@@ -14,6 +14,14 @@ module FFI
              :initial_buffer_size, :size_t,
              :ctx, :pointer
 
+      def Unpacker.create(size)
+        Unpacker.new(MsgPack.msgpack_unpacker_new(size))
+      end
+
+      def Unpacker.release(ptr)
+        MsgPack.msgpack_unpacker_free(ptr)
+      end
+
       def reverse_buffer(size)
         if self[:free] >= size
           true
