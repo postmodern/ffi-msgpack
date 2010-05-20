@@ -110,7 +110,7 @@ module FFI
       #
       # Packs a Ruby object.
       #
-      # @param [Hash, Array, String, Symbol, Integer, Float, nil] value
+      # @param [Hash, Array, String, Symbol, Integer, Float, true, false, nil] value
       #   The Ruby object to pack.
       #
       # @return [Packer]

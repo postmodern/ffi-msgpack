@@ -93,7 +93,7 @@ module FFI
     #
     # Packs a Ruby object.
     #
-    # @param [Array, Hash, String, Symbol, Integer, Float, nil]  obj
+    # @param [Hash, Array, String, Symbol, Integer, Float, true, false, nil]  obj
     #   The Ruby object to pack.
     #
     # @return [String]
