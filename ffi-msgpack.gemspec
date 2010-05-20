@@ -39,6 +39,10 @@ Gem::Specification.new do |s|
     "lib/ffi/msgpack/packer.rb",
     "lib/ffi/msgpack/types.rb",
     "lib/ffi/msgpack/unpacker.rb",
+    "lib/ffi/msgpack/zone.rb",
+    "lib/ffi/msgpack/zone_chunk_list.rb",
+    "lib/ffi/msgpack/zone_finalizer.rb",
+    "lib/ffi/msgpack/zone_finalizer_array.rb",
     "spec/msg_object_spec.rb",
     "spec/packer_spec.rb",
     "spec/spec_helper.rb"
