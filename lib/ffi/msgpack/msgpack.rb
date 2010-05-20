@@ -90,5 +90,21 @@ module FFI
 
     attach_function :msgpack_pack_object, [:pointer, MsgObject.by_value], :int
 
+    #
+    # Packs a Ruby object.
+    #
+    # @param [Array, Hash, String, Symbol, Integer, Float, nil]  obj
+    #   The Ruby object to pack.
+    #
+    # @return [String]
+    #   The packed Ruby object.
+    #
+    def MsgPack.pack(obj)
+      packer = Packer.create
+      packer << obj
+
+      return packer.to_s
+    end
+
   end
 end
