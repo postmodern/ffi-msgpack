@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
     "VERSION",
     "ffi-msgpack.gemspec",
     "lib/ffi/msgpack.rb",
+    "lib/ffi/msgpack/exceptions/parse_error.rb",
     "lib/ffi/msgpack/msg_array.rb",
     "lib/ffi/msgpack/msg_key_value.rb",
     "lib/ffi/msgpack/msg_map.rb",
