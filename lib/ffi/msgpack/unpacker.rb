@@ -36,8 +36,8 @@ module FFI
         end
       end
 
-      def buffer
-        self[:buffer] + self[:used]
+      def buffer_offset
+        self[:used]
       end
 
       def buffer_capacity
