@@ -13,7 +13,7 @@ describe MsgPack::Packer do
     end
 
     it "should track the number of bytes written" do
-      @packer.length.should == 1
+      @packer.total.should == 1
     end
 
     it "should be convertable to a String" do
@@ -41,7 +41,7 @@ describe MsgPack::Packer do
       end
       packer << 1
 
-      packer.length.should == 1
+      packer.total.should == 1
     end
 
     it "should accept a secondary length argument" do

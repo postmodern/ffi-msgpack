@@ -11,8 +11,8 @@ module FFI
       # The optional buffer to write packed Msg Objects into.
       attr_accessor :buffer
 
-      # The length of the buffer
-      attr_accessor :length
+      # The total length of the buffer
+      attr_accessor :total
 
       #
       # Creates a new packer.
@@ -40,8 +40,8 @@ module FFI
         packer[:data] = nil
         packer[:callback] = nil
 
-        # zero the length
-        packer.length = 0
+        # zero the total
+        packer.total = 0
 
         if block
           # disable the buffer
@@ -80,7 +80,7 @@ module FFI
       #
       def callback(&block)
         self[:callback] = Proc.new do |data_ptr,packed_ptr,length|
-          @length += length
+          @total += length
 
           packed = packed_ptr.get_bytes(0,length)
 
