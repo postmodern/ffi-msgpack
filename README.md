@@ -14,6 +14,8 @@ Ruby FFI bindings for the [msgpack](http://msgpack.sourceforge.net/) library.
 
 Pack an Object:
 
+    require 'ffi/msgpack'
+
     FFI::MsgPack.pack([1,'x',true])
     # => "\x93\x01\xA1x\xC3"
 
@@ -31,9 +33,11 @@ Pack one or more Objects into a Buffer:
 
 Pack one or more Objects with a custom write callback:
 
+    require 'socket'
+
     socket = TCPSocket.new('example.com',9786)
     packer = FFI::MsgPack::Packer.create do |packed,length|
-      socket.write(packed,length)
+      socket.write(packed)
     end
 
     packer << 1
