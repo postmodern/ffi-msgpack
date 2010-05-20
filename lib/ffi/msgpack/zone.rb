@@ -13,39 +13,6 @@ module FFI
              :finalizer_array, ZoneFinalizerArray,
              :chunk_size, :size_t
 
-      #
-      # Creates a new buffer zone.
-      #
-      # @param [Integer] chunk_size
-      #   The chunk-size to use in the buffer zone.
-      #
-      # @return [Zone]
-      #   The new buffer zone.
-      #
-      def Zone.create(chunk_size=CHUNK_SIZE)
-        Zone.new(MsgPack.msgpack_zone_new(chunk_size))
-      end
-
-      #
-      # Releases a previously created buffer zone.
-      #
-      # @param [FFI::Pointer] ptr
-      #   The pointer to the buffer zone.
-      #
-      def Zone.release(ptr)
-        MsgPack.msgpack_zone_free(ptr)
-      end
-
-      #
-      # Determines whether the buffer zone is empty.
-      #
-      # @return [Boolean]
-      #   Specifies if the buffer zone is empty.
-      #
-      def empty?
-        MsgPack.msgpack_zone_is_empty(self)
-      end
-
     end
   end
 end

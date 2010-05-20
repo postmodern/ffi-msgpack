@@ -1,7 +1,6 @@
 require 'ffi/msgpack/exceptions/parse_error'
 require 'ffi/msgpack/types'
 require 'ffi/msgpack/msgpack'
-require 'ffi/msgpack/zone'
 
 module FFI
   module MsgPack
@@ -69,7 +68,7 @@ module FFI
           if ret > 0
             # copy out the next Msg Object and release it's zone
             obj = MsgPack.msgpack_unpacker_data(self)
-            zone = Zone.new(MsgPack.msgpack_unpacker_release_zone(self))
+            zone = MsgPack.msgpack_unpacker_release_zone(self)
 
             # reset the unpacker
             MsgPack.msgpack_unpacker_reset(self)
