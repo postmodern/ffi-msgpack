@@ -40,6 +40,7 @@ Gem::Specification.new do |s|
     "lib/ffi/msgpack/types.rb",
     "lib/ffi/msgpack/unpacker.rb",
     "spec/msg_object_spec.rb",
+    "spec/packer_spec.rb",
     "spec/spec_helper.rb"
   ]
   s.has_rdoc = %q{yard}
@@ -50,6 +51,7 @@ Gem::Specification.new do |s|
   s.summary = %q{FFI bindings for msgpack}
   s.test_files = [
     "spec/msg_object_spec.rb",
+    "spec/packer_spec.rb",
     "spec/spec_helper.rb"
   ]
 
