@@ -40,12 +40,21 @@ module FFI
         MsgPack.msgpack_unpacker_free(ptr)
       end
 
+      def <<(packed)
+        reserve_buffer(packed.length)
+
+        self[:buffer].put_bytes(buffer_offset,packed)
+
+        buffer_consumed(self,result.length)
+        return self
+      end
+
       def read(io)
         reserve_buffer(@chunk_size)
         result = io.read(buffer_capacity)
 
         unless (result.nil? || result.empty?)
-          buffer_consumed(self,result.length)
+          self << result
           return true
         else
           return false
