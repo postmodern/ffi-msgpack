@@ -32,7 +32,7 @@ module FFI
 
     attach_function :msgpack_unpacker_execute, [:pointer], :int
 
-    attach_function :msgpack_unpacker_data, [:pointer], MsgObject
+    attach_function :msgpack_unpacker_data, [:pointer], MsgObject.by_value
 
     attach_function :msgpack_unpacker_release_zone, [:pointer], :pointer
 
