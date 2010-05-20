@@ -84,6 +84,9 @@ module FFI
       # @param [MsgObject] msg
       #   The Msg Object to pack.
       #
+      # @return [Integer]
+      #   Returns 0 on a successful write, and -1 if an error occurred.
+      #
       def pack(msg)
         MsgPack.msgpack_pack_object(self,msg)
       end
