@@ -4,7 +4,6 @@ module FFI
   module MsgPack
     extend FFI::Library
 
-    typedef :uint, :size_t
     typedef :pointer, :FILE
 
     enum :msgpack_unpack_return, [
