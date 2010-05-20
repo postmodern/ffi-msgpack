@@ -40,20 +40,42 @@ module FFI
           packer.buffer = nil
 
           # custom callback
-          packer[:callback] = Proc.new do |user,packed_ptr,length|
-            block.call(packed_ptr,length)
-          end
+          packer.callback(&block)
         else
           # set the buffer
           packer.buffer = (buffer || '')
 
           # setup the default callback
-          packer[:callback] = Proc.new do |user,packed_ptr,length|
+          packer.callback do |packed_ptr,length|
             packer.buffer << packed_ptr.get_bytes(0,length)
           end
         end
 
         return packer
+      end
+
+      #
+      # Sets the write callback for the packer.
+      #
+      # @yield [packed_ptr,length]
+      #   If a block is given, it will be used as the callback to write
+      #   the packed data.
+      #
+      # @yieldparam [FFI::Pointer] packed_ptr
+      #   The pointer to the packed data to be written.
+      #
+      # @yieldparam [Integer] length
+      #   The length of the packed data.
+      #
+      # @return [Proc]
+      #   The new callback.
+      #
+      def callback(&block)
+        self[:callback] = Proc.new do |data_ptr,packed_ptr,length|
+          block.call(packed_ptr,length)
+          
+          0 # return 0 to indicate success
+        end
       end
 
       #
