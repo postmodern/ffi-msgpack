@@ -21,8 +21,8 @@ module FFI
       #   If a block is given, it will be used as the callback to write
       #   the packed data.
       #
-      # @yieldparam [FFI::Pointer] packed_ptr
-      #   The pointer to the packed data to be written.
+      # @yieldparam [String] packed
+      #   The packed bytes representing a Msg Object.
       #
       # @yieldparam [Integer] length
       #   The length of the packed data.
@@ -47,8 +47,8 @@ module FFI
           packer.buffer = (buffer || '')
 
           # setup the default callback
-          packer.callback do |packed_ptr,length|
-            packer.buffer << packed_ptr.get_bytes(0,length)
+          packer.callback do |packed,length|
+            packer.buffer << packed
           end
         end
 
@@ -58,12 +58,12 @@ module FFI
       #
       # Sets the write callback for the packer.
       #
-      # @yield [packed_ptr,length]
+      # @yield [packed,length]
       #   If a block is given, it will be used as the callback to write
       #   the packed data.
       #
-      # @yieldparam [FFI::Pointer] packed_ptr
-      #   The pointer to the packed data to be written.
+      # @yieldparam [String] packed
+      #   The packed bytes representing a Msg Object.
       #
       # @yieldparam [Integer] length
       #   The length of the packed data.
@@ -73,7 +73,9 @@ module FFI
       #
       def callback(&block)
         self[:callback] = Proc.new do |data_ptr,packed_ptr,length|
-          block.call(packed_ptr,length)
+          packed = packed_ptr.get_bytes(0,length)
+
+          block.call(packed,length)
           
           0 # return 0 to indicate success
         end
