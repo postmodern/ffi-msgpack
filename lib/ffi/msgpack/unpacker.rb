@@ -3,8 +3,6 @@ require 'ffi/msgpack/types'
 require 'ffi/msgpack/msgpack'
 require 'ffi/msgpack/zone'
 
-require 'enumerator'
-
 module FFI
   module MsgPack
     class Unpacker < FFI::Struct
@@ -65,8 +63,6 @@ module FFI
       end
 
       def each
-        return enum_for(:each) unless block_given?
-
         loop do
           ret = MsgPack.msgpack_unpacker_execute(self)
 
