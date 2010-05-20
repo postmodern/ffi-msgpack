@@ -9,8 +9,8 @@ module FFI
 
     ffi_lib 'msgpack'
 
-    attach_function :msgpack_object_print, [:pointer, MsgObject], :void
-    #attach_function :msgpack_object_equal, [MsgObject, MsgObject], :bool
+    attach_function :msgpack_object_print, [:pointer, MsgObject.by_value], :void
+    #attach_function :msgpack_object_equal, [MsgObject, MsgObject.by_value], :bool
 
     attach_function :msgpack_unpacker_init, [:pointer, :size_t], :bool
     attach_function :msgpack_unpacker_destroy, [:pointer], :void
@@ -81,7 +81,7 @@ module FFI
 
     #attach_function :msgpack_pack_raw_body, [:pointer, :pointer, :size_t], :int
 
-    attach_function :msgpack_pack_object, [:pointer, MsgObject], :int
+    attach_function :msgpack_pack_object, [:pointer, MsgObject.by_value], :int
 
   end
 end
