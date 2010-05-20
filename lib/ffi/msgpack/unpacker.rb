@@ -48,7 +48,7 @@ module FFI
         self[:buffer].put_bytes(buffer_offset,packed)
 
         # advace the buffer position
-        buffer_consumed(self,result.length)
+        buffer_consumed!(packed.length)
         return self
       end
 
@@ -94,7 +94,7 @@ module FFI
 
       protected
 
-      def reverse_buffer(size)
+      def reserve_buffer(size)
         if self[:free] >= size
           true
         else
