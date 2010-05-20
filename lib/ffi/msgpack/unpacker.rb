@@ -41,10 +41,13 @@ module FFI
       end
 
       def <<(packed)
+        # make sure we have space in the buffer
         reserve_buffer(packed.length)
 
+        # copy in the bytes
         self[:buffer].put_bytes(buffer_offset,packed)
 
+        # advace the buffer position
         buffer_consumed(self,result.length)
         return self
       end
@@ -68,13 +71,16 @@ module FFI
           ret = MsgPack.msgpack_unpacker_execute(self)
 
           if ret > 0
+            # copy out the next Msg Object and release it's zone
             obj = MsgPack.msgpack_unpacker_data(self)
             zone = Zone.new(MsgPack.msgpack_unpacker_release_zone(self))
 
+            # reset the unpacker
             MsgPack.msgpack_unpacker_reset(self)
 
             yield obj
 
+            # free the zone now that we are done with it
             MsgPack.msgpack_zone_free(zone)
           elsif ret < 0
             raise(ParseError,"a parse error occurred",caller)
