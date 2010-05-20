@@ -40,7 +40,7 @@ describe MsgPack::Unpacker do
     objs = []
 
     @unpacker << @packed
-    @unpacker.each do |obj|
+    @unpacker.each_object do |obj|
       objs << [obj.type, obj.values[:u64]]
     end
 

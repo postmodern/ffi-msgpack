@@ -61,7 +61,7 @@ module FFI
         end
       end
 
-      def each
+      def each_object
         loop do
           ret = MsgPack.msgpack_unpacker_execute(self)
 
@@ -85,6 +85,14 @@ module FFI
         end
 
         return self
+      end
+
+      def each
+        return enum_for(:each) unless block_given?
+
+        each_object do |obj|
+          yield obj.to_ruby
+        end
       end
 
       protected

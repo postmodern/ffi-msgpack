@@ -113,26 +113,14 @@ module FFI
     # @param [String] packed
     #   The packed object.
     #
-    # @yield [obj]
-    #   The given block will be passed every unpacked Ruby object.
-    #
-    # @yieldparam [Hash, Array, String, Symbol, Integer, Float, true, false, nil] obj
-    #   The unpacked Ruby object.
-    #
-    # @return [Enumerator, nil]
-    #   If no block is given, an Enumerator will be returned.
+    # @return [Hash, Array, String, Symbol, Integer, Float, true, false, nil]
+    #   The first unpacked Ruby object.
     #
     def MsgPack.unpack(packed)
-      return enum_for(:unpack,packed) unless block_given?
-
       unpacker = Unpacker.create(packed.length)
       unpacker << packed
 
-      unpacker.each do |obj|
-        yield obj.to_ruby
-      end
-
-      return nil
+      return unpacker.first
     end
 
   end
