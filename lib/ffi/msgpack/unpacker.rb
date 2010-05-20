@@ -1,9 +1,15 @@
+require 'ffi/msgpack/exceptions/parse_error'
 require 'ffi/msgpack/types'
 require 'ffi/msgpack/msgpack'
+require 'ffi/msgpack/zone'
+
+require 'enumerator'
 
 module FFI
   module MsgPack
     class Unpacker < FFI::Struct
+
+      include Enumerable
 
       layout :buffer, :pointer,
              :used, :size_t,
@@ -51,6 +57,31 @@ module FFI
 
       def parsed_size
         self[:parsed]
+      end
+
+      def each
+        return enum_for(:each) unless block_given?
+
+        loop do
+          ret = MsgPack.msgpack_unpacker_execute(self)
+
+          if ret > 0
+            obj = MsgPack.msgpack_unpacker_data(self)
+            zone = Zone.new(MsgPack.msgpack_unpacker_release_zone(self))
+
+            MsgPack.msgpack_unpacker_reset(self)
+
+            yield obj
+
+            MsgPack.msgpack_zone_free(zone)
+          elsif ret < 0
+            raise(ParseError,"a parse error occurred",caller)
+          else
+            break
+          end
+        end
+
+        return self
       end
 
     end
