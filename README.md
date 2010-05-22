@@ -13,7 +13,7 @@ Ruby FFI bindings for the [msgpack](http://msgpack.sourceforge.net/) library.
 * Can pack and unpack `nil`, `true`, `false`, Integers, Floats, Strings,
   Arrays and Hashes.
 * Provides a buffered / callback driven packer.
-* Provides a buffered / streaming driven unpacker.
+* Provides a buffered / streaming unpacker.
 
 ## Examples
 
