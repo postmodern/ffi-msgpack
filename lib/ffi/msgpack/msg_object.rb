@@ -9,6 +9,20 @@ module FFI
              :values, MsgObjectUnion
 
       #
+      # Initializes a new Msg Object.
+      #
+      # @param [FFI::Pointer] ptr
+      #   An optional pointer to an existing Msg Object.
+      #
+      def initialize(ptr=nil)
+        if ptr
+          super(ptr)
+        else
+          super()
+        end
+      end
+
+      #
       # Creates a new `nil` Msg Object.
       #
       # @param [FFI::Pointer] ptr
