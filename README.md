@@ -67,6 +67,15 @@ Enumerate over each unpacked Object:
       puts obj.inspect
     end
 
+Enumerates over each unpacked Object from a stream:
+
+    unpacker = FFI::MsgPack::Unpacker.create
+    unpacker.stream = socket
+
+    unpacker.each do |obj|
+      puts obj.inspect
+    end
+
 ## Requirements
 
 * [msgpack](http://msgpack.sourceforge.net/) >= 0.4.2
