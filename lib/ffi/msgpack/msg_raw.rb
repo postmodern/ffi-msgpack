@@ -23,7 +23,7 @@ module FFI
       # @return [FFI::Pointer]
       #   The pointer to the raw data.
       #
-      def raw_ptr
+      def raw
         self[:ptr]
       end
 
