@@ -1,3 +1,7 @@
+### 0.1.1 / 2010-05-21
+
+* Fixed {FFI::MsgPack::MsgObject#initialize} on JRuby.
+
 ### 0.1.0 / 2010-05-21
 
 * Initial release.
