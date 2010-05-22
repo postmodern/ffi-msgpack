@@ -14,6 +14,9 @@ module FFI
       # The chunk-size to expand the buffer by
       attr_accessor :chunk_size
 
+      # The optional stream to read packed data from
+      attr_accessor :stream
+
       layout :buffer, :pointer,
              :used, :size_t,
              :free, :size_t,
@@ -27,6 +30,7 @@ module FFI
         super(*arguments)
 
         @chunk_size = CHUNK_SIZE
+        @stream = nil
       end
 
       def Unpacker.create(size)
@@ -80,7 +84,9 @@ module FFI
           elsif ret < 0
             raise(ParseError,"a parse error occurred",caller)
           else
-            break
+            unless (@stream && read(@stream))
+              break
+            end
           end
         end
 
