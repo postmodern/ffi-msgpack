@@ -11,6 +11,9 @@ module FFI
       # Default chunk-size to expand the buffer by
       CHUNK_SIZE = 1024
 
+      # The default size of the unpacker buffer
+      DEFAULT_SIZE = CHUNK_SIZE * 4
+
       # The chunk-size to expand the buffer by
       attr_accessor :chunk_size
 
@@ -45,7 +48,7 @@ module FFI
       # @return [Unpacker]
       #   The new unpacker.
       #
-      def Unpacker.create(size)
+      def Unpacker.create(size=DEFAULT_SIZE)
         Unpacker.new(MsgPack.msgpack_unpacker_new(size))
       end
 
