@@ -78,7 +78,7 @@ Enumerates over each unpacked Object from a stream:
 
 ## Requirements
 
-* [libmsgpack](http://msgpack.sourceforge.net/) >= 0.4.2
+* [libmsgpack](http://msgpack.sourceforge.net/) >= 0.5.0
 * [ffi](http://github.com/ffi/ffi) >= 0.6.0
 
 ## Install

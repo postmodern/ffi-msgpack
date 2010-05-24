@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-05-21}
+  s.date = %q{2010-05-24}
   s.description = %q{Ruby FFI bindings for the msgpack library.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.extra_rdoc_files = [
@@ -63,7 +63,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/postmodern/ffi-msgpack}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.requirements = ["libmsgpack, 0.4.2 or greater"]
+  s.requirements = ["libmsgpack, 0.5.0 or greater"]
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{FFI bindings for msgpack}
   s.test_files = [
