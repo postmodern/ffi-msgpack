@@ -1,3 +1,8 @@
+### 0.1.2 / 2010-05-24
+
+* Require libmsgpack >= 0.5.0, due to changes in the
+  `msgpack_object_type` enum.
+
 ### 0.1.1 / 2010-05-21
 
 * Fixed {FFI::MsgPack::MsgObject#initialize} on JRuby.
