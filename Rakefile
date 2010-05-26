@@ -10,16 +10,15 @@ rescue Bundler::BundlerError => e
 end
 
 require 'rake'
-require 'rake/clean'
 require 'jeweler'
 
 Jeweler::Tasks.new do |gem|
   gem.name = 'ffi-msgpack'
   gem.licenses = ['MIT']
   gem.summary = %Q{FFI bindings for msgpack}
+  gem.description = %Q{Ruby FFI bindings for the msgpack library.}
   gem.email = 'postmodern.mod3@gmail.com'
   gem.homepage = %Q{http://github.com/postmodern/ffi-msgpack}
-  gem.description = %Q{Ruby FFI bindings for the msgpack library.}
   gem.authors = ['Postmodern']
   gem.requirements = ['libmsgpack, 0.5.0 or greater']
   gem.has_rdoc = 'yard'
