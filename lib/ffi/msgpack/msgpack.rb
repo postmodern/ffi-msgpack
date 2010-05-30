@@ -94,15 +94,16 @@ module FFI
     #
     # Packs a Ruby object.
     #
-    # @param [Hash, Array, String, Symbol, Integer, Float, true, false, nil] obj
-    #   The Ruby object to pack.
+    # @param [Array[Hash, Array, String, Symbol, Integer, Float, true, false, nil]] objs
+    #   The Ruby object(s) to pack.
     #
     # @return [String]
     #   The packed Ruby object.
     #
-    def MsgPack.pack(obj)
+    def MsgPack.pack(*objs)
       packer = Packer.create
-      packer << obj
+
+      objs.each { |obj| packer << obj }
 
       return packer.to_s
     end
