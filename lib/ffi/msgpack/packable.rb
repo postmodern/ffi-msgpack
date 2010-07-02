@@ -11,7 +11,7 @@ module FFI
       #
       def to_msgpack
         packer = Packer.create
-        packer << obj
+        packer << self
 
         return packer.to_s
       end
