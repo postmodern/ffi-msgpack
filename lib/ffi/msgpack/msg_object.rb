@@ -184,8 +184,8 @@ module FFI
         values.each_with_index do |(key,value),index|
           pair = MsgKeyValue.new(entries[index])
 
-          pair[:key] = MsgObject.new_object(key)
-          pair[:value] = MsgObject.new_object(value)
+          MsgObject.new_object(key,pair[:key].to_ptr)
+          MsgObject.new_object(value,pair[:value].to_ptr)
         end
 
         obj = MsgObject.new

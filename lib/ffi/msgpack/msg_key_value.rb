@@ -5,8 +5,8 @@ module FFI
   module MsgPack
     class MsgKeyValue < FFI::Struct
 
-      layout :key, :pointer,
-             :value, :pointer
+      layout :key, MsgObject,
+             :value, MsgObject
 
       #
       # The key.
@@ -15,7 +15,7 @@ module FFI
       #   The key Msg Object.
       #
       def key
-        MsgObject.new(self[:key])
+        self[:key]
       end
 
       #
@@ -25,7 +25,7 @@ module FFI
       #   The value Msg Object.
       #
       def value
-        MsgObject.new(self[:value])
+        self[:value]
       end
 
     end

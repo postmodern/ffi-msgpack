@@ -1,8 +1,9 @@
 require 'ffi/msgpack/types'
-require 'ffi/msgpack/msg_key_value'
 
 module FFI
   module MsgPack
+    autoload :MsgKeyValue, 'ffi/msgpack/msg_key_value'
+
     class MsgMap < FFI::Struct
 
       layout :size, :uint32,
