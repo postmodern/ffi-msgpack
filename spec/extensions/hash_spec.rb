@@ -9,8 +9,6 @@ describe Hash do
   end
 
   it "should pack to a msg" do
-    pending "fix packing of Hashes" do
-      subject.to_msgpack.should == "\x92\x01\x02"
-    end
+    subject.to_msgpack.should == "\x82\x01\xA1a\x02\xA1b"
   end
 end
