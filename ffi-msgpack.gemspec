@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-05-24}
+  s.date = %q{2010-07-02}
   s.description = %q{Ruby FFI bindings for the msgpack library.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.extra_rdoc_files = [
@@ -54,6 +54,14 @@ Gem::Specification.new do |s|
     "lib/ffi/msgpack/zone_chunk_list.rb",
     "lib/ffi/msgpack/zone_finalizer.rb",
     "lib/ffi/msgpack/zone_finalizer_array.rb",
+    "spec/extensions/array_spec.rb",
+    "spec/extensions/false_class_spec.rb",
+    "spec/extensions/float_spec.rb",
+    "spec/extensions/hash_spec.rb",
+    "spec/extensions/integer_spec.rb",
+    "spec/extensions/nil_class_spec.rb",
+    "spec/extensions/string_spec.rb",
+    "spec/extensions/true_class_spec.rb",
     "spec/msg_object_spec.rb",
     "spec/packer_spec.rb",
     "spec/spec_helper.rb",
@@ -67,6 +75,14 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{FFI bindings for msgpack}
   s.test_files = [
+    "spec/extensions/array_spec.rb",
+    "spec/extensions/false_class_spec.rb",
+    "spec/extensions/float_spec.rb",
+    "spec/extensions/hash_spec.rb",
+    "spec/extensions/integer_spec.rb",
+    "spec/extensions/nil_class_spec.rb",
+    "spec/extensions/string_spec.rb",
+    "spec/extensions/true_class_spec.rb",
     "spec/msg_object_spec.rb",
     "spec/packer_spec.rb",
     "spec/spec_helper.rb",
