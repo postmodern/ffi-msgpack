@@ -1,3 +1,7 @@
+### 0.1.4 / 2010-08-12
+
+* Added {FFI::MsgPack.version}.
+
 ### 0.1.3 / 2010-07-03
 
 * Added specs for {FFI::MsgPack::Packable}.
