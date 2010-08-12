@@ -10,6 +10,26 @@ module FFI
 
     ffi_lib 'msgpack'
 
+    begin
+      attach_function :msgpack_version, [], :string
+      attach_function :msgpack_version_major, [], :int
+      attach_function :msgpack_version_minor, [], :int
+    rescue FFI::NotFoundError
+    end
+
+    #
+    # The version of libmsgpack.
+    #
+    # @return [String, nil]
+    #   The version of `libmsgpack`. `nil` will be returned if the version
+    #   of `libmsgpack` is <= 0.5.1.
+    #
+    # @since 0.1.4
+    #
+    def MsgPack.version
+      MsgPack.msgpack_version if MsgPack.respond_to?(:msgpack_version)
+    end
+
     attach_function :msgpack_object_print, [:pointer, MsgObject.by_value], :void
     #attach_function :msgpack_object_equal, [MsgObject, MsgObject.by_value], :bool
 
