@@ -1,0 +1,20 @@
+name: ffi-msgpack
+version: 0.1.4
+summary: FFI bindings for msgpack
+description: Ruby FFI bindings for the msgpack library.
+license: MIT
+authors: Postmodern
+email: postmodern.mod3@gmail.com
+homepage: http://github.com/postmodern/ffi-msgpack
+has_yard: true
+
+requirements: libmsgpack, 0.5.0 or greater
+
+dependencies:
+  ffi: ~> 0.6.0
+
+development_dependencies:
+  ore: ~> 0.2.0
+  ore-tasks: ~> 0.1.2
+  rspec: ~> 2.0.0
+  yard: ~> 0.6.0
