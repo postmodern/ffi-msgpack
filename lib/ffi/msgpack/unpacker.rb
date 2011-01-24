@@ -209,7 +209,7 @@ module FFI
       end
 
       #
-      # Consums space in the buffer.
+      # Consumes space in the buffer.
       #
       # @param [Integer] size
       #   The number of bytes to be consumed.
