@@ -20,14 +20,16 @@ module FFI
     #
     # The version of libmsgpack.
     #
-    # @return [String, nil]
+    # @return [Gem::Version, nil]
     #   The version of `libmsgpack`. `nil` will be returned if the version
     #   of `libmsgpack` is <= 0.5.1.
     #
     # @since 0.1.4
     #
     def MsgPack.version
-      MsgPack.msgpack_version if MsgPack.respond_to?(:msgpack_version)
+      if MsgPack.respond_to?(:msgpack_version)
+        @version ||= Gem::Version.new(MsgPack.msgpack_version)
+      end
     end
 
     attach_function :msgpack_object_print, [:pointer, MsgObject.by_value], :void
