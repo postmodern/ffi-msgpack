@@ -1,4 +1,5 @@
+gem 'rspec', '~> 2.4'
 require 'rspec'
-require 'ffi'
 
+require 'ffi'
 include FFI
