@@ -190,4 +190,41 @@ describe MsgPack::MsgObject do
       @obj.to_ruby.should == @hash
     end
   end
+
+  it "should create highly nested Msg Objects" do
+    obj = MsgPack::MsgObject.new_object({'one' => {2 => [3.0]}})
+
+    obj[:type].should == :map
+    map = obj[:values][:map]
+    map[:size].should == 1
+
+    pair = MsgPack::MsgKeyValue.new(map[:ptr])
+
+    key = pair[:key]
+    key[:type].should == :raw
+
+    raw = key[:values][:raw]
+    raw[:ptr].get_bytes(0,raw[:size]).should == 'one'
+
+    value = pair[:value]
+    value[:type].should == :map
+
+    map = value[:values][:map]
+    map[:size].should == 1
+
+    pair = MsgPack::MsgKeyValue.new(map[:ptr])
+    key = pair[:key]
+    key[:type].should == :positive_integer
+    key[:values][:i64].should == 2
+
+    value = pair[:value]
+    value[:type].should == :array
+
+    array = value[:values][:array]
+    array[:size].should == 1
+
+    value = MsgPack::MsgObject.new(array[:ptr])
+    value[:type].should == :double
+    value[:values][:dec].should == 3.0
+  end
 end
