@@ -1,5 +1,5 @@
 name: ffi-msgpack
-version: 0.1.4
+version: 0.1.5
 summary: FFI bindings for msgpack
 description: Ruby FFI bindings for the msgpack library.
 license: MIT
