@@ -10,6 +10,33 @@ module FFI
              :ptr, :pointer
 
       #
+      # Sets the entries of the Map.
+      #
+      # @param [Hash] values
+      #   The values to populate the Map with.
+      #
+      # @return [MsgMap]
+      #   The populated Map.
+      #
+      # @since 0.1.5
+      #
+      def set(values)
+        @entries = FFI::MemoryPointer.new(MsgKeyValue,values.length)
+
+        values.each_with_index do |(key,value),index|
+          pair = MsgKeyValue.new(@entries[index])
+
+          MsgObject.new_object(key,pair[:key].to_ptr)
+          MsgObject.new_object(value,pair[:value].to_ptr)
+        end
+
+        self[:size] = values.length
+        self[:ptr] = @entries
+
+        return self
+      end
+
+      #
       # The length of the MsgPack Array.
       #
       # @return [Integer]

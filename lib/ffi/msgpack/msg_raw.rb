@@ -8,6 +8,27 @@ module FFI
              :ptr, :pointer
 
       #
+      # Sets the contents of the Raw String.
+      #
+      # @param [String] data
+      #   The values to populate the Raw String with.
+      #
+      # @return [MsgRaw]
+      #   The populated Raw String.
+      #
+      # @since 0.1.5
+      #
+      def set(data)
+        @buffer = FFI::MemoryPointer.new(:uchar, data.length)
+        @buffer.put_bytes(0,data)
+
+        self[:size] = data.length
+        self[:ptr] = @buffer
+
+        return self
+      end
+
+      #
       # The length of the raw data.
       #
       # @return [Integer]

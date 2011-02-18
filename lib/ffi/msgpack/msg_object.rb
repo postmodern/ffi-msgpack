@@ -128,13 +128,9 @@ module FFI
       #   The raw Msg Object.
       #
       def MsgObject.new_raw(data,ptr=nil)
-        buffer = FFI::MemoryPointer.new(:uchar, data.length)
-        buffer.put_bytes(0,data)
-
         obj = MsgObject.new(ptr)
         obj[:type] = :raw
-        obj[:values][:raw][:size] = data.length
-        obj[:values][:raw][:ptr] = buffer
+        obj[:values][:raw].set(data)
 
         return obj
       end
@@ -152,16 +148,9 @@ module FFI
       #   The array Msg Object.
       #
       def MsgObject.new_array(values,ptr=nil)
-        entries = FFI::MemoryPointer.new(MsgObject,values.length)
-
-        values.each_with_index do |value,index|
-          MsgObject.new_object(value,entries[index])
-        end
-
         obj = MsgObject.new(ptr)
         obj[:type] = :array
-        obj[:values][:array][:size] = values.length
-        obj[:values][:array][:ptr] = entries
+        obj[:values][:array].set(values)
 
         return obj
       end
@@ -179,19 +168,9 @@ module FFI
       #   The map Msg Object.
       #
       def MsgObject.new_map(values,ptr=nil)
-        entries = FFI::MemoryPointer.new(MsgKeyValue,values.length)
-
-        values.each_with_index do |(key,value),index|
-          pair = MsgKeyValue.new(entries[index])
-
-          MsgObject.new_object(key,pair[:key].to_ptr)
-          MsgObject.new_object(value,pair[:value].to_ptr)
-        end
-
-        obj = MsgObject.new
+        obj = MsgObject.new(ptr)
         obj[:type] = :map
-        obj[:values][:map][:size] = values.length
-        obj[:values][:map][:ptr] = entries
+        obj[:values][:map].set(values)
 
         return obj
       end
