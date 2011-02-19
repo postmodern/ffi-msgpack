@@ -178,7 +178,7 @@ module FFI
       #
       # Sets the Msg Objects value to nil.
       #
-      # @since 0.1.5
+      # @since 0.2.0
       #
       def set_nil!
         @objects = nil
@@ -193,7 +193,7 @@ module FFI
       # @param [Boolean] value
       #   The Boolean value.
       #
-      # @since 0.1.5
+      # @since 0.2.0
       #
       def set_boolean!(value)
         @objects = nil
@@ -213,7 +213,7 @@ module FFI
       # @param [Integer] value
       #   The Integer value.
       #
-      # @since 0.1.5
+      # @since 0.2.0
       #
       def set_integer!(value)
         @objects = nil
@@ -234,7 +234,7 @@ module FFI
       # @param [Float] value
       #   The Floating Point value.
       #
-      # @since 0.1.5
+      # @since 0.2.0
       #
       def set_double!(value)
         @objects = nil
@@ -250,7 +250,7 @@ module FFI
       # @param [String, Symbol] value
       #   The String value.
       #
-      # @since 0.1.5
+      # @since 0.2.0
       #
       def set_raw!(value)
         value = value.to_s
@@ -272,7 +272,7 @@ module FFI
       # @param [Array] value
       #   The Array value.
       #
-      # @since 0.1.5
+      # @since 0.2.0
       #
       def set_array!(values)
         @objects = []
@@ -295,7 +295,7 @@ module FFI
       # @param [Hash] value
       #   The Map value.
       #
-      # @since 0.1.5
+      # @since 0.2.0
       #
       def set_map!(values)
         @objects = {}
@@ -326,7 +326,7 @@ module FFI
       # @return [MsgObject]
       #   The new Msg Object.
       #
-      # @since 0.1.5
+      # @since 0.2.0
       #
       def set!(value)
         case value
