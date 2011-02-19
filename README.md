@@ -1,12 +1,14 @@
 # ffi-msgpack
 
-* [github.com/postmodern/ffi-msgpack](http://github.com/postmodern/ffi-msgpack/)
-* [github.com/postmodern/ffi-msgpack/issues](http://github.com/postmodern/ffi-msgpack/issues)
-* Postmodern (postmodern.mod3 at gmail.com)
+* [Source](http://github.com/postmodern/ffi-msgpack/)
+* [Issues](http://github.com/postmodern/ffi-msgpack/issues)
+* [Documentation](http://rubydoc.info/ffi-msgpack)
+* [Email](mailto:postmodern.mod3 at gmail.com)
 
 ## Description
 
-Ruby FFI bindings for the [msgpack](http://msgpack.sourceforge.net/) library.
+Ruby FFI bindings for the [msgpack](http://msgpack.sourceforge.net/)
+library.
 
 ## Features
 
@@ -87,5 +89,6 @@ Enumerates over each unpacked Object from a stream:
 
 ## License
 
-See {file:LICENSE.txt} for license information.
+Copyright (c) 2010-2011 Hal Brodigan
 
+See {file:LICENSE.txt} for license information.
