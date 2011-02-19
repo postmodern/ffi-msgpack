@@ -1,3 +1,17 @@
+### 0.2.0 / 2011-02-18
+
+* Added {FFI::MsgPack::MsgObject#set!}.
+* Added {FFI::MsgPack::MsgObject#set_nil!}.
+* Added {FFI::MsgPack::MsgObject#set_boolean!}.
+* Added {FFI::MsgPack::MsgObject#set_integer!}.
+* Added {FFI::MsgPack::MsgObject#set_double!}.
+* Added {FFI::MsgPack::MsgObject#set_float!}.
+* Added {FFI::MsgPack::MsgObject#set_raw!}.
+* Added {FFI::MsgPack::MsgObject#set_array!}.
+* Added {FFI::MsgPack::MsgObject#set_map!}.
+* Fixed a major bug, where newly created buffers holding Msg Raws, Arrays
+  or Maps, were getting GCed and then overwritten.
+
 ### 0.1.4 / 2010-08-12
 
 * Added {FFI::MsgPack.version}.
