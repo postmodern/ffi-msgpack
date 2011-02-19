@@ -15,14 +15,14 @@ module FFI
       #   An optional pointer to an existing Msg Object.
       #
       def initialize(ptr=nil)
-        @object = nil
-        @memory = nil
-
         if ptr
           super(ptr)
         else
           super()
         end
+
+        @object = nil
+        @memory = nil
       end
 
       #
