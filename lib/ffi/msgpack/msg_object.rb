@@ -351,7 +351,7 @@ module FFI
         when NilClass
           set_nil!
         else
-          raise(ArgumentError,"ambigious object to create MsgObject from: #{value.inspect}",caller)
+          raise(ArgumentError,"ambigious object to create MsgObject from: #{value.inspect}")
         end
 
         return value
