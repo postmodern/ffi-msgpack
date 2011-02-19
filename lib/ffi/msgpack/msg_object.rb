@@ -244,6 +244,8 @@ module FFI
         self[:values][:dec] = value
       end
 
+      alias set_float! set_double!
+
       #
       # Sets the Msg Objects value to a String value.
       #
