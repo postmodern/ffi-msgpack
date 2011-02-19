@@ -9,30 +9,6 @@ module FFI
              :ptr, :pointer
 
       #
-      # Sets the entries of the Array.
-      #
-      # @param [Array] values
-      #   The values to populate the Array with.
-      #
-      # @return [MsgArray]
-      #   The populated Array.
-      #
-      # @since 0.1.5
-      #
-      def set(values)
-        @entries = FFI::MemoryPointer.new(MsgObject,values.length)
-
-        values.each_with_index do |value,index|
-          MsgObject.new_object(value,@entries[index])
-        end
-
-        self[:size] = values.length
-        self[:ptr] = @entries
-
-        return self
-      end
-
-      #
       # The length of the MsgPack Array.
       #
       # @return [Integer]

@@ -15,6 +15,9 @@ module FFI
       #   An optional pointer to an existing Msg Object.
       #
       def initialize(ptr=nil)
+        @object = nil
+        @memory = nil
+
         if ptr
           super(ptr)
         else
@@ -33,8 +36,7 @@ module FFI
       #
       def MsgObject.new_nil(ptr=nil)
         obj = MsgObject.new(ptr)
-        obj[:type] = :nil
-
+        obj.set_nil!
         return obj
       end
 
@@ -52,13 +54,7 @@ module FFI
       #
       def MsgObject.new_boolean(value,ptr=nil)
         obj = MsgObject.new(ptr)
-        obj[:type] = :boolean
-        obj[:values][:boolean] = if value
-                                   1
-                                 else
-                                   0
-                                 end
-
+        obj.set_boolean!(value)
         return obj
       end
 
@@ -76,15 +72,7 @@ module FFI
       #
       def MsgObject.new_integer(value,ptr=nil)
         obj = MsgObject.new(ptr)
-
-        if value < 0
-          obj[:type] = :negative_integer
-          obj[:values][:i64] = value
-        else
-          obj[:type] = :positive_integer
-          obj[:values][:u64] = value
-        end
-
+        obj.set_integer!(value)
         return obj
       end
 
@@ -102,9 +90,7 @@ module FFI
       #
       def MsgObject.new_double(value,ptr=nil)
         obj = MsgObject.new(ptr)
-        obj[:type] = :double
-        obj[:values][:dec] = value
-
+        obj.set_double!(value)
         return obj
       end
 
@@ -112,7 +98,9 @@ module FFI
       # @see MsgObject.new_double
       #
       def MsgObject.new_float(value,ptr=nil)
-        MsgObject.new_double(value,ptr)
+        obj = MsgObject.new(ptr)
+        obj.set_double!(value)
+        return obj
       end
 
       #
@@ -129,9 +117,7 @@ module FFI
       #
       def MsgObject.new_raw(data,ptr=nil)
         obj = MsgObject.new(ptr)
-        obj[:type] = :raw
-        obj[:values][:raw].set(data)
-
+        obj.set_raw!(data)
         return obj
       end
 
@@ -149,9 +135,7 @@ module FFI
       #
       def MsgObject.new_array(values,ptr=nil)
         obj = MsgObject.new(ptr)
-        obj[:type] = :array
-        obj[:values][:array].set(values)
-
+        obj.set_array!(values)
         return obj
       end
 
@@ -169,9 +153,7 @@ module FFI
       #
       def MsgObject.new_map(values,ptr=nil)
         obj = MsgObject.new(ptr)
-        obj[:type] = :map
-        obj[:values][:map].set(values)
-
+        obj.set_map!(values)
         return obj
       end
 
@@ -188,24 +170,185 @@ module FFI
       #   The new Msg Object.
       #
       def MsgObject.new_object(value,ptr=nil)
+        obj = MsgObject.new(ptr)
+        obj.set!(value)
+        return obj
+      end
+
+      #
+      # Sets the Msg Objects value to nil.
+      #
+      # @since 0.1.5
+      #
+      def set_nil!
+        @objects = nil
+        @memory = nil
+
+        self[:type] = :nil
+      end
+
+      #
+      # Sets the Msg Objects value to a Boolean value.
+      #
+      # @param [Boolean] value
+      #   The Boolean value.
+      #
+      # @since 0.1.5
+      #
+      def set_boolean!(value)
+        @objects = nil
+        @memory = nil
+
+        self[:type] = :boolean
+        self[:values][:boolean] = if value
+                                   1
+                                 else
+                                   0
+                                 end
+      end
+
+      #
+      # Sets the Msg Objects value to an Integer value.
+      #
+      # @param [Integer] value
+      #   The Integer value.
+      #
+      # @since 0.1.5
+      #
+      def set_integer!(value)
+        @objects = nil
+        @memory = nil
+
+        if value < 0
+          self[:type] = :negative_integer
+          self[:values][:i64] = value
+        else
+          self[:type] = :positive_integer
+          self[:values][:u64] = value
+        end
+      end
+
+      #
+      # Sets the Msg Objects value to a Floating Point value.
+      #
+      # @param [Float] value
+      #   The Floating Point value.
+      #
+      # @since 0.1.5
+      #
+      def set_double!(value)
+        @objects = nil
+        @memory = nil
+
+        self[:type] = :double
+        self[:values][:dec] = value
+      end
+
+      #
+      # Sets the Msg Objects value to a String value.
+      #
+      # @param [String, Symbol] value
+      #   The String value.
+      #
+      # @since 0.1.5
+      #
+      def set_raw!(value)
+        value = value.to_s
+
+        @objects = nil
+        @memory = FFI::MemoryPointer.new(:uchar, value.length) 
+        @memory.put_bytes(0,value)
+
+        self[:type] = :raw
+
+        raw = self[:values][:raw]
+        raw[:size] = value.length
+        raw[:ptr] = @memory
+      end
+
+      #
+      # Sets the Msg Objects value to an Array value.
+      #
+      # @param [Array] value
+      #   The Array value.
+      #
+      # @since 0.1.5
+      #
+      def set_array!(values)
+        @objects = []
+        @memory = FFI::MemoryPointer.new(MsgObject,values.length)
+
+        values.each_with_index do |value,index|
+          @objects << MsgObject.new_object(value,@memory[index])
+        end
+
+        self[:type] = :array
+
+        array = self[:values][:array]
+        array[:size] = values.length
+        array[:ptr] = @memory
+      end
+
+      #
+      # Sets the Msg Objects value to a Map value.
+      #
+      # @param [Hash] value
+      #   The Map value.
+      #
+      # @since 0.1.5
+      #
+      def set_map!(values)
+        @objects = {}
+        @memory = FFI::MemoryPointer.new(MsgKeyValue,values.length)
+
+        values.each_with_index do |(key,value),index|
+          pair = MsgKeyValue.new(@memory[index])
+
+          key_obj = MsgObject.new_object(key,pair[:key].to_ptr)
+          value_obj = MsgObject.new_object(value,pair[:value].to_ptr)
+
+          @objects[key_obj] = value_obj
+        end
+
+        self[:type] = :map
+
+        map = self[:values][:map]
+        map[:size] = values.length
+        map[:ptr] = @memory
+      end
+
+      #
+      # Sets the contents of the Msg Object using a Ruby Object.
+      #
+      # @param [Object] value
+      #   The Ruby object.
+      #
+      # @return [MsgObject]
+      #   The new Msg Object.
+      #
+      # @since 0.1.5
+      #
+      def set!(value)
         case value
         when Hash
-          MsgObject.new_map(value,ptr)
+          set_map!(value)
         when Array
-          MsgObject.new_array(value,ptr)
+          set_array!(value)
         when String, Symbol
-          MsgObject.new_raw(value.to_s,ptr)
+          set_raw!(value)
         when Float
-          MsgObject.new_double(value,ptr)
+          set_double!(value)
         when Integer
-          MsgObject.new_integer(value,ptr)
+          set_integer!(value)
         when TrueClass, FalseClass
-          MsgObject.new_boolean(value,ptr)
+          set_boolean!(value)
         when NilClass
-          MsgObject.new_nil(ptr)
+          set_nil!
         else
           raise(ArgumentError,"ambigious object to create MsgObject from: #{value.inspect}",caller)
         end
+
+        return value
       end
 
       #
