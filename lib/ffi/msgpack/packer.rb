@@ -63,6 +63,24 @@ module FFI
       end
 
       #
+      # Creates a new {Packer}.
+      #
+      # @param [FFI::Pointer] ptr
+      #   An optional pointer to an existing packer.
+      #
+      # @since 0.2.0
+      #
+      def initialize(ptr=nil)
+        if ptr
+          super(ptr)
+        else
+          super()
+        end
+
+        @object = MsgObject.new
+      end
+
+      #
       # Sets the write callback for the packer.
       #
       # @yield [packed(,length)]
@@ -117,7 +135,9 @@ module FFI
       #   The packer.
       #
       def <<(value)
-        pack(MsgObject.new_object(value))
+        @object.set!(value)
+
+        pack(@object)
         return self
       end
 
