@@ -328,6 +328,10 @@ module FFI
       # @return [MsgObject]
       #   The new Msg Object.
       #
+      # @raise [ArgumentError]
+      #   The object was not a {Hash}, {Array}, {String}, {Symbol}, {Float},
+      #   {Integer}, `true`, `false` or `nil`.
+      #
       # @since 0.2.0
       #
       def set!(value)
