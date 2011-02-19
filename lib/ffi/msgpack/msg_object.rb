@@ -409,7 +409,7 @@ module FFI
         when :map
           self[:values][:map].to_hash
         else
-          raise(RuntimeError,"unknown msgpack object type",caller)
+          raise("unknown msgpack object type")
         end
       end
 
