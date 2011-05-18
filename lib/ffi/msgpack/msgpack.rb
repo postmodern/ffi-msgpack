@@ -65,7 +65,7 @@ module FFI
 
     #attach_function :msgpack_unpacker_message_size, [:pointer], :size_t
 
-    attach_function :msgpack_unpack, [:pointer, :size_t, :pointer, :pointer, :pointer], :msgpack_unpack_return
+    attach_function :msgpack_unpack, [:string, :size_t, :pointer, :pointer, :pointer], :msgpack_unpack_return
 
     #attach_function :msgpack_unpacker_parsed_size, [:pointer], :size_t
 
@@ -109,7 +109,7 @@ module FFI
 
     #attach_function :msgpack_pack_raw, [:pointer, :size_t], :int
 
-    #attach_function :msgpack_pack_raw_body, [:pointer, :pointer, :size_t], :int
+    #attach_function :msgpack_pack_raw_body, [:pointer, :buffer_in, :size_t], :int
 
     attach_function :msgpack_pack_object, [:pointer, MsgObject.by_value], :int
 
