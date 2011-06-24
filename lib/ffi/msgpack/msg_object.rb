@@ -328,7 +328,7 @@ module FFI
       # @return [MsgObject]
       #   The new Msg Object.
       #
-      # @raise [ArgumentError]
+      # @raise [TypeError]
       #   The object was not a {Hash}, {Array}, {String}, {Symbol}, {Float},
       #   {Integer}, `true`, `false` or `nil`.
       #
@@ -351,7 +351,7 @@ module FFI
         when NilClass
           set_nil!
         else
-          raise(ArgumentError,"ambigious object to create MsgObject from: #{value.inspect}")
+          raise(TypeError,"ambigious object to create MsgObject from: #{value.inspect}")
         end
 
         return value
