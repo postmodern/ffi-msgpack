@@ -1,11 +1,12 @@
 ### 0.2.1 / 2012-05-11
 
-* Temporarily drop support for [Rubinius](http://rubini.us/) due to [missing
-  FFI::Union](https://github.com/rubinius/rubinius/issues/1717).
+* Require ffi ~> 1.0.
 * Load `libmsgpack.so.3` if `libmsgpack.so` does not exist.
 * Use `:string`, `:buffer_out`, `:buffer_in` FFI types.
 * {FFI::MsgPack::MsgObject#set!} now raises a TypeError when given
   ambigious values.
+* Temporarily drop support for [Rubinius](http://rubini.us/) due to [missing
+  FFI::Union](https://github.com/rubinius/rubinius/issues/1717).
 
 ### 0.2.0 / 2011-02-18
 
