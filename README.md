@@ -80,6 +80,10 @@ Enumerates over each unpacked Object from a stream:
 
 ## Requirements
 
+* [Ruby](http://ruby-lang.org/) >= 1.8.7 or
+  [JRruby](http://jruby.org) >= 1.6
+  * [Rubinius](http://rubini.us/) is not currently supported due to
+    [Issue 1717](https://github.com/rubinius/rubinius/issues/1717)
 * [libmsgpack](http://msgpack.sourceforge.net/) >= 0.5.0
 * [ffi](http://github.com/ffi/ffi) ~> 1.0
 
