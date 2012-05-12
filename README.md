@@ -85,7 +85,7 @@ Enumerates over each unpacked Object from a stream:
 
 ## Install
 
-    $ sudo gem install ffi-msgpack
+    $ gem install ffi-msgpack
 
 ## License
 
