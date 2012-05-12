@@ -1,7 +1,7 @@
 # ffi-msgpack
 
-* [Source](http://github.com/postmodern/ffi-msgpack/)
-* [Issues](http://github.com/postmodern/ffi-msgpack/issues)
+* [Source](https://github.com/postmodern/ffi-msgpack/)
+* [Issues](https://github.com/postmodern/ffi-msgpack/issues)
 * [Documentation](http://rubydoc.info/ffi-msgpack)
 * [Email](mailto:postmodern.mod3 at gmail.com)
 
