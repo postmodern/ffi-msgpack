@@ -1,3 +1,10 @@
+### 0.2.1 / 2012-05-11
+
+* Load `libmsgpack.so.3` if `libmsgpack.so` does not exist.
+* Use `:string`, `:buffer_out`, `:buffer_in` FFI types.
+* {FFI::MsgPack::MsgObject#set!} now raises a TypeError when given
+  ambigious values.
+
 ### 0.2.0 / 2011-02-18
 
 * Added {FFI::MsgPack::MsgObject#set!}.
