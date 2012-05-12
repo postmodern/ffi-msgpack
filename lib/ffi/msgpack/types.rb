@@ -13,7 +13,7 @@ module FFI
       :parse_error, -1
     ]
 
-    callback :msgpack_packer_write, [:buffer_out, :pointer, :uint], :int
+    callback :msgpack_packer_write, [:pointer, :pointer, :uint], :int
 
     enum :msgpack_object_type, [
       :nil,              0x00,
