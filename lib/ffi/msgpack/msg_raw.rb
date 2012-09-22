@@ -34,7 +34,7 @@ module FFI
       #   The raw data.
       #
       def to_s
-        self[:ptr].get_bytes(0,self[:size])
+        self[:ptr].read_bytes(self[:size])
       end
 
     end

@@ -204,7 +204,7 @@ describe MsgPack::MsgObject do
     key[:type].should == :raw
 
     raw = key[:values][:raw]
-    raw[:ptr].get_bytes(0,raw[:size]).should == 'one'
+    raw[:ptr].read_bytes(raw[:size]).should == 'one'
 
     value = pair[:value]
     value[:type].should == :map

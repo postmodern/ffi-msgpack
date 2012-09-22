@@ -259,7 +259,7 @@ module FFI
 
         @objects = nil
         @memory = FFI::MemoryPointer.new(:uchar, value.length) 
-        @memory.put_bytes(0,value)
+        @memory.write_bytes(value)
 
         self[:type] = :raw
 

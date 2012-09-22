@@ -100,7 +100,7 @@ module FFI
         self[:callback] = Proc.new do |data_ptr,packed_buffer,length|
           @total += length
 
-          packed = packed_buffer.get_bytes(0,length)
+          packed = packed_buffer.read_bytes(length)
 
           if block.arity == 2
             block.call(packed,length)
