@@ -271,7 +271,7 @@ module FFI
       #
       # Sets the Msg Objects value to an Array value.
       #
-      # @param [Array] value
+      # @param [Array] values
       #   The Array value.
       #
       # @since 0.2.0
@@ -294,7 +294,7 @@ module FFI
       #
       # Sets the Msg Objects value to a Map value.
       #
-      # @param [Hash] value
+      # @param [Hash] values
       #   The Map value.
       #
       # @since 0.2.0
