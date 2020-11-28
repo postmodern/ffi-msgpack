@@ -28,7 +28,7 @@ jobs:
       - name: Install libmsgpack
         run: |
           sudo apt update -y && \
-          sudo apt install -y libmsgpack-dev
+          sudo apt install -y --no-install-recommends --no-install-suggests libmsgpack-dev
       - name: Install dependencies
         run: bundle install --jobs 4 --retry 3
       - name: Run tests
