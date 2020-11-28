@@ -7,10 +7,10 @@ describe FalseClass do
   subject { false }
 
   it "should be packable" do
-    should be_kind_of(FFI::MsgPack::Packable)
+    expect(subject).to be_kind_of(FFI::MsgPack::Packable)
   end
 
   it "should pack to a msg" do
-    subject.to_msgpack.should == "\xC2"
+    expect(subject.to_msgpack).to be == "\xC2"
   end
 end

@@ -7,10 +7,10 @@ describe Array do
   subject { [1, 2] }
 
   it "should be packable" do
-    should be_kind_of(FFI::MsgPack::Packable)
+    expect(subject).to be_kind_of(FFI::MsgPack::Packable)
   end
 
   it "should pack to a msg" do
-    subject.to_msgpack.should == "\x92\x01\x02"
+    expect(subject.to_msgpack).to be == "\x92\x01\x02"
   end
 end

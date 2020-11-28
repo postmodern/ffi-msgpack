@@ -18,17 +18,17 @@ describe MsgPack::Unpacker do
       @unpacker << @packed
       size2 = @unpacker[:used]
 
-      (size2 - size1).should == @packed.length
+      expect(size2 - size1).to eq(@packed.length)
     end
 
     it "should enqueue data from IO objects into the buffer" do
       io = StringIO.new(@packed)
 
       size1 = @unpacker[:used]
-      @unpacker.read(io).should == true
+      expect(@unpacker.read(io)).to eq(true)
       size2 = @unpacker[:used]
 
-      (size2 - size1).should == @packed.length
+      expect(size2 - size1).to eq(@packed.length)
     end
   end
 
@@ -46,7 +46,7 @@ describe MsgPack::Unpacker do
         objs << [obj.type, obj.values[:u64]]
       end
 
-      objs.should == expected
+      expect(objs).to eq(expected)
     end
 
     it "should unpack each Msg Object from a stream" do
@@ -63,7 +63,7 @@ describe MsgPack::Unpacker do
         objs << [obj.type, obj.values[:u64]]
       end
 
-      objs.should == expected
+      expect(objs).to eq(expected)
     end
   end
 end

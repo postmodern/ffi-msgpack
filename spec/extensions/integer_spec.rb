@@ -9,6 +9,6 @@ describe Integer do
   end
 
   it "should pack to a msg" do
-    subject.to_msgpack.should == "\x02"
+    expect(subject.to_msgpack).to eq("\x02")
   end
 end

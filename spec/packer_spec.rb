@@ -9,15 +9,15 @@ describe MsgPack::Packer do
     end
 
     it "should write packed messages to a buffer" do
-      @packer.buffer.should == "\x01"
+      expect(@packer.buffer).to eq("\x01")
     end
 
     it "should track the number of bytes written" do
-      @packer.total.should == 1
+      expect(@packer.total).to eq(1)
     end
 
     it "should be convertable to a String" do
-      @packer.to_s.should == "\x01"
+      expect(@packer.to_s).to eq("\x01")
     end
   end
 
@@ -32,7 +32,7 @@ describe MsgPack::Packer do
       end
       packer << 1
 
-      @buffer.should == ["\x01"]
+      expect(@buffer).to eq(["\x01"])
     end
 
     it "should track the number of bytes written" do
@@ -41,7 +41,7 @@ describe MsgPack::Packer do
       end
       packer << 1
 
-      packer.total.should == 1
+      expect(packer.total).to eq(1)
     end
 
     it "should accept a secondary length argument" do
@@ -50,13 +50,13 @@ describe MsgPack::Packer do
       end
       packer << 1
 
-      @buffer.should == [["\x01", 1]]
+      expect(@buffer).to eq([["\x01", 1]])
     end
 
     it "should not be convertable to a String" do
       packer = MsgPack::Packer.create { |packed| }
 
-      packer.to_s.should == nil
+      expect(packer.to_s).to eq(nil)
     end
   end
 end

@@ -10,15 +10,15 @@ describe MsgPack::MsgObject do
     it "should create nil Msg Objects from NilClasses" do
       obj = MsgPack::MsgObject.new_object(nil)
 
-      obj.type.should == :nil
+      expect(obj.type).to eq(:nil)
     end
 
     it "should create new nil Msg Objects" do
-      @obj.type.should == :nil
+      expect(@obj.type).to eq(:nil)
     end
 
     it "should return a Ruby nil value" do
-      @obj.to_ruby.should == nil
+      expect(@obj.to_ruby).to eq(nil)
     end
   end
 
@@ -28,21 +28,21 @@ describe MsgPack::MsgObject do
     end
 
     it "should create new boolean Msg Objects" do
-      @obj.type.should == :boolean
+      expect(@obj.type).to eq(:boolean)
 
-      @obj[:values][:boolean].should == 1
+      expect(@obj[:values][:boolean]).to eq(1)
     end
 
     it "should create boolean Msg Objects from TrueClass/FalseClass" do
       obj1 = MsgPack::MsgObject.new_object(true)
-      obj1.type.should == :boolean
+      expect(obj1.type).to eq(:boolean)
 
       obj2 = MsgPack::MsgObject.new_object(false)
-      obj2.type.should == :boolean
+      expect(obj2.type).to eq(:boolean)
     end
 
     it "should return a Ruby true/false value" do
-      @obj.to_ruby.should == true
+      expect(@obj.to_ruby).to eq(true)
     end
   end
 
@@ -52,18 +52,18 @@ describe MsgPack::MsgObject do
     end
 
     it "should create new positive integer Msg Objects" do
-      @obj.type.should == :positive_integer
-      @obj[:values][:u64].should == 10
+      expect(@obj.type).to eq(:positive_integer)
+      expect(@obj[:values][:u64]).to eq(10)
     end
 
     it "should create positive integer Msg Objects from Integers" do
       obj1 = MsgPack::MsgObject.new_object(10)
 
-      obj1.type.should == :positive_integer
+      expect(obj1.type).to eq(:positive_integer)
     end
 
     it "should return a Ruby Integer" do
-      @obj.to_ruby.should == 10
+      expect(@obj.to_ruby).to eq(10)
     end
   end
 
@@ -73,18 +73,18 @@ describe MsgPack::MsgObject do
     end
 
     it "should create new negative integer Msg Objects" do
-      @obj.type.should == :negative_integer
-      @obj[:values][:i64].should == -1
+      expect(@obj.type).to eq(:negative_integer)
+      expect(@obj[:values][:i64]).to eq(-1)
     end
 
     it "should create negative integer Msg Objects from Integers" do
       obj1 = MsgPack::MsgObject.new_object(-1)
 
-      obj1.type.should == :negative_integer
+      expect(obj1.type).to eq(:negative_integer)
     end
 
     it "should return a Ruby Integer" do
-      @obj.to_ruby.should == -1
+      expect(@obj.to_ruby).to eq(-1)
     end
   end
 
@@ -94,18 +94,18 @@ describe MsgPack::MsgObject do
     end
 
     it "should create new floating-point Msg Objects" do
-      @obj.type.should == :double
-      @obj[:values][:dec].should == 0.002
+      expect(@obj.type).to eq(:double)
+      expect(@obj[:values][:dec]).to eq(0.002)
     end
 
     it "should create floating-point Msg Objects from Floats" do
       obj1 = MsgPack::MsgObject.new_object(0.002)
 
-      obj1.type.should == :double
+      expect(obj1.type).to eq(:double)
     end
 
     it "should return a Ruby Float" do
-      @obj.to_ruby.should == 0.002
+      expect(@obj.to_ruby).to eq(0.002)
     end
   end
 
@@ -116,26 +116,26 @@ describe MsgPack::MsgObject do
     end
 
     it "should create new raw Msg Objects" do
-      @obj.type.should == :raw
+      expect(@obj.type).to eq(:raw)
 
-      @obj[:values][:raw].length.should == @binary.length
-      @obj[:values][:raw].to_s.should == @binary
+      expect(@obj[:values][:raw].length).to eq(@binary.length)
+      expect(@obj[:values][:raw].to_s).to eq(@binary)
     end
 
     it "should create raw Msg Objects from Strings" do
       obj = MsgPack::MsgObject.new_object(@binary)
 
-      obj.type.should == :raw
+      expect(obj.type).to eq(:raw)
     end
 
     it "should create raw Msg Objects from Symbols" do
       obj = MsgPack::MsgObject.new_object(:example)
 
-      obj.type.should == :raw
+      expect(obj.type).to eq(:raw)
     end
 
     it "should return a String" do
-      @obj.to_ruby.should == @binary
+      expect(@obj.to_ruby).to eq(@binary)
     end
   end
 
@@ -146,19 +146,19 @@ describe MsgPack::MsgObject do
     end
 
     it "should create new array Msg Objects" do
-      @obj.type.should == :array
+      expect(@obj.type).to eq(:array)
 
-      @obj[:values][:array].length.should == @array.length
+      expect(@obj[:values][:array].length).to eq(@array.length)
     end
 
     it "should create array Msg Objects from Arrays" do
       obj = MsgPack::MsgObject.new_object(@array)
 
-      obj.type.should == :array
+      expect(obj.type).to eq(:array)
     end
 
     it "should return a Ruby Array" do
-      @obj.to_ruby.should == @array
+      expect(@obj.to_ruby).to eq(@array)
     end
   end
 
@@ -175,56 +175,56 @@ describe MsgPack::MsgObject do
     end
 
     it "should create new map Msg Objects" do
-      @obj.type.should == :map
+      expect(@obj.type).to eq(:map)
 
-      @obj[:values][:map].length.should == @hash.length
+      expect(@obj[:values][:map].length).to eq(@hash.length)
     end
 
     it "should create map Msg Objects from Hashes" do
       obj = MsgPack::MsgObject.new_object(@hash)
 
-      obj.type.should == :map
+      expect(obj.type).to eq(:map)
     end
 
     it "should return a Ruby Hash" do
-      @obj.to_ruby.should == @hash
+      expect(@obj.to_ruby).to eq(@hash)
     end
   end
 
   it "should create highly nested Msg Objects" do
     obj = MsgPack::MsgObject.new_object({'one' => {2 => [3.0]}})
 
-    obj[:type].should == :map
+    expect(obj[:type]).to eq(:map)
     map = obj[:values][:map]
-    map[:size].should == 1
+    expect(map[:size]).to eq(1)
 
     pair = MsgPack::MsgKeyValue.new(map[:ptr])
 
     key = pair[:key]
-    key[:type].should == :raw
+    expect(key[:type]).to eq(:raw)
 
     raw = key[:values][:raw]
-    raw[:ptr].read_bytes(raw[:size]).should == 'one'
+    expect(raw[:ptr].read_bytes(raw[:size])).to eq('one')
 
     value = pair[:value]
-    value[:type].should == :map
+    expect(value[:type]).to eq(:map)
 
     map = value[:values][:map]
-    map[:size].should == 1
+    expect(map[:size]).to eq(1)
 
     pair = MsgPack::MsgKeyValue.new(map[:ptr])
     key = pair[:key]
-    key[:type].should == :positive_integer
-    key[:values][:i64].should == 2
+    expect(key[:type]).to eq(:positive_integer)
+    expect(key[:values][:i64]).to eq(2)
 
     value = pair[:value]
-    value[:type].should == :array
+    expect(value[:type]).to eq(:array)
 
     array = value[:values][:array]
-    array[:size].should == 1
+    expect(array[:size]).to eq(1)
 
     value = MsgPack::MsgObject.new(array[:ptr])
-    value[:type].should == :double
-    value[:values][:dec].should == 3.0
+    expect(value[:type]).to eq(:double)
+    expect(value[:values][:dec]).to eq(3.0)
   end
 end
