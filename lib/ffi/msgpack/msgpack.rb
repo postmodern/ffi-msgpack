@@ -8,7 +8,7 @@ module FFI
   module MsgPack
     extend FFI::Library
 
-    ffi_lib ['msgpack', 'libmsgpack.so.3']
+    ffi_lib %w[msgpack libmsgpack.so.3 msgpackc libmsgpackc.so.2]
 
     begin
       attach_function :msgpack_version, [], :string
