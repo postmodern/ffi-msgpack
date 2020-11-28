@@ -1,3 +1,8 @@
+### 0.2.2 / 2020-11-28
+
+* Support loading `libmsgpackc` as well as `libmsgpackc.so.2`, if
+  `libmsgpack` cannot be found.
+
 ### 0.2.1 / 2012-05-11
 
 * Require ffi ~> 1.0.
