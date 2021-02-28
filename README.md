@@ -1,5 +1,7 @@
 # ffi-msgpack
 
+[![CI](https://github.com/postmodern/ffi-msgpack/actions/workflows/ruby.yml/badge.svg)](https://github.com/postmodern/ffi-msgpack/actions/workflows/ruby.yml)
+
 * [Source](https://github.com/postmodern/ffi-msgpack/)
 * [Issues](https://github.com/postmodern/ffi-msgpack/issues)
 * [Documentation](http://rubydoc.info/ffi-msgpack)
