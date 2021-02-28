@@ -1,6 +1,7 @@
 # ffi-msgpack
 
 [![CI](https://github.com/postmodern/ffi-msgpack/actions/workflows/ruby.yml/badge.svg)](https://github.com/postmodern/ffi-msgpack/actions/workflows/ruby.yml)
+[![Code Climate](https://codeclimate.com/github/postmodern/ffi-msgpack.svg)](https://codeclimate.com/github/postmodern/ffi-msgpack)
 
 * [Source](https://github.com/postmodern/ffi-msgpack/)
 * [Issues](https://github.com/postmodern/ffi-msgpack/issues)
